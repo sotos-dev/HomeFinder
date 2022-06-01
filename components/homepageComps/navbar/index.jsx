@@ -13,9 +13,9 @@ const NavBar = () => {
 
   return (
     <>
-      <header className='relative flex justify-between items-center w-full py-4 md:px-5 md:py-5 lg:px-7 lg:py-7 z-10'>
+      <header className='relative z-10 flex w-full items-center justify-between py-4 md:px-5 md:py-5 lg:px-7 lg:py-7'>
         {/* Logo */}
-        <div className='w-24 ml-5 mt-1 md:w-36 lg:w-44'>
+        <div className='ml-5 mt-1 w-24 md:w-36 lg:w-44'>
           <Logo />
         </div>
         {/* Sandwich Button */}
@@ -56,7 +56,7 @@ const NavBar = () => {
         <nav
           className={`${
             menuState ? "translate-x-0" : "-translate-x-full"
-          } absolute top-20  bg-slate-100 w-3/4  rounded-tr-lg rounded-br-lg transition-transform duration-500 md:hidden`}>
+          } absolute top-20 h-screen w-3/4 rounded-tr-lg rounded-br-lg bg-slate-50 transition-transform duration-500 md:hidden`}>
           <ul className='flex flex-col'>
             <Navlinks
               name='My Home'
