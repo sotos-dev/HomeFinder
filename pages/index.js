@@ -1,3 +1,4 @@
+import HeroSection from "../components/homepageComps/heroSection"
 import NavBar from "../components/homepageComps/navbar"
 
 const HomePage = () => {
@@ -6,6 +7,7 @@ const HomePage = () => {
       {/* Navbar */}
       <NavBar />
       {/* Hero section */}
+      <HeroSection />
     </>
   )
 }

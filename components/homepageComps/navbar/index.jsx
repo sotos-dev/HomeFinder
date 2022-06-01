@@ -13,13 +13,13 @@ const NavBar = () => {
 
   return (
     <>
-      <header className='relative flex justify-between items-center w-full py-4 md:px-5 md:py-5 lg:px-7 lg:py-7'>
+      <header className='relative flex justify-between items-center w-full py-4 md:px-5 md:py-5 lg:px-7 lg:py-7 z-10'>
         {/* Logo */}
         <div className='w-24 ml-5 mt-1 md:w-36 lg:w-44'>
           <Logo />
         </div>
         {/* Sandwich Button */}
-        <button className='mr-10 md:hidden' onClick={toggleMenu}>
+        <button className='mr-5 md:hidden' onClick={toggleMenu}>
           <FcMenu size={35} />
         </button>
         {/* Tablet&Up-NavMenu */}

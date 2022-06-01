@@ -8,6 +8,7 @@ module.exports = {
     extend: {
       colors: {
         myBlue: "#49566A",
+        myMagento: "#fc9026",
         myOrange: "#FF914D",
       },
     },
