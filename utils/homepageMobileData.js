@@ -103,6 +103,7 @@ export const totalMaxPrice = [
 export const propertyType = ["Show all", "Houses", "Flats", "Farms/land"]
 
 export const pricePerMonth = [
+  "No max",
   "£100 pcm",
   "£200 pcm",
   "£300 pcm",
@@ -147,6 +148,7 @@ export const pricePerMonth = [
 ]
 
 export const pricePerWeek = [
+  "No max",
   "£25 pw",
   "£50 pw",
   "£75 pw",

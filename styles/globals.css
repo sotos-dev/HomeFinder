@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* @layer {
+  select {
+    background-color: theme("colors.red.500");
+  }
+} */
