@@ -1,5 +1,7 @@
+import Contact from "../components/homepageComps/featuredSection"
 import HeroSection from "../components/homepageComps/heroSection"
-import NavBar from "../components/homepageComps/navbar"
+import Footer from "../layout/footer"
+import NavBar from "../layout/navbar"
 
 const HomePage = () => {
   return (
@@ -8,6 +10,10 @@ const HomePage = () => {
       <NavBar />
       {/* Hero section */}
       <HeroSection />
+      {/* Contact me */}
+      <Contact />
+      {/* Footer */}
+      <Footer />
     </>
   )
 }

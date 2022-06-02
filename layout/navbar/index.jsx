@@ -1,9 +1,12 @@
-import { FcHome, FcSearch, FcKey, FcAbout, FcContacts } from "react-icons/fc"
+import { HiHome, HiSearch } from "react-icons/hi"
+import { BsFillKeyFill } from "react-icons/bs"
+import { IoMdInformationCircle } from "react-icons/io"
+import { MdPermContactCalendar } from "react-icons/md"
 import { FcMenu } from "react-icons/fc"
-import Divider from "../../../ui/divider"
+import Divider from "../../ui/divider"
 import Navlinks from "./NavLinks"
-import { useState } from "react"
 import Logo from "./NavLogo"
+import { useState } from "react"
 
 const NavBar = () => {
   const [menuState, setMenuState] = useState(false)
@@ -28,27 +31,27 @@ const NavBar = () => {
             <Navlinks
               name='My Home'
               destination='/'
-              icon={<FcHome size={35} />}
+              icon={<HiHome size={35} />}
             />
             <Navlinks
               name='Search'
               destination='/search'
-              icon={<FcSearch size={35} />}
+              icon={<HiSearch size={35} />}
             />
             <Navlinks
               name='Featured'
               destination='/featured'
-              icon={<FcKey size={35} />}
+              icon={<BsFillKeyFill size={35} />}
             />
             <Navlinks
               name='About'
               destination='/about'
-              icon={<FcAbout size={35} />}
+              icon={<IoMdInformationCircle size={35} />}
             />
             <Navlinks
               name='Contact'
               destination='/contact'
-              icon={<FcContacts size={35} />}
+              icon={<MdPermContactCalendar size={35} />}
             />
           </ul>
         </nav>
@@ -56,36 +59,36 @@ const NavBar = () => {
         <nav
           className={`${
             menuState ? "translate-x-0" : "-translate-x-full"
-          } absolute top-20 h-screen w-3/4 rounded-tr-lg rounded-br-lg bg-slate-50 transition-transform duration-500 md:hidden`}>
+          } absolute top-20 h-screen w-3/4 rounded-tr-lg rounded-br-lg bg-gray-50 shadow-xl transition-transform duration-500 md:hidden`}>
           <ul className='flex flex-col'>
             <Navlinks
               name='My Home'
               destination='/'
-              icon={<FcHome size={30} />}
+              icon={<HiHome size={30} />}
             />
             <Divider />
             <Navlinks
               name='Search'
               destination='/search'
-              icon={<FcSearch size={30} />}
+              icon={<HiSearch size={30} />}
             />
             <Divider />
             <Navlinks
               name='Featured'
               destination='/featured'
-              icon={<FcKey size={30} />}
+              icon={<BsFillKeyFill size={30} />}
             />
             <Divider />
             <Navlinks
               name='About'
               destination='/about'
-              icon={<FcAbout size={30} />}
+              icon={<IoMdInformationCircle size={30} />}
             />
             <Divider />
             <Navlinks
               name='Contact'
               destination='/contact'
-              icon={<FcContacts size={30} />}
+              icon={<MdPermContactCalendar size={30} />}
             />
           </ul>
         </nav>
