@@ -1,4 +1,9 @@
+import { useState } from "react"
 import { MdKeyboardArrowDown } from "react-icons/md"
+import {
+  checkboxesInfo,
+  theAllCheckboxInfo,
+} from "../../../utils/homepageLaptopData"
 import {
   bedrooms,
   totalMaxPrice,
@@ -7,9 +12,8 @@ import {
   propertyType,
 } from "../../../utils/homepageMobileData"
 import Option from "./Option"
-import { useState } from "react"
-import Radios from "./Radios"
-import Container from "../../../ui/container"
+import Checkbox from "./Checkbox"
+import TheAllCheckbox from "./TheAllCheckbox"
 
 const HeroFormLaptop = () => {
   const [forSaleButton, setForSaleButton] = useState(true)
@@ -19,6 +23,11 @@ const HeroFormLaptop = () => {
   const [weekly, setWeekly] = useState(false)
   const [displayBedrooms, setDisplayBedrooms] = useState(false)
   const [displayPriceRange, setDisplayPriceRange] = useState(false)
+
+  // PROPERTY TYPES
+  const [propertyNameTypes, setPropertyNameTypes] = useState(["Show all"])
+  const [checkboxesState, setCheckboxesState] = useState(checkboxesInfo)
+  const [allCheckboxState, setAllCheckboxState] = useState(theAllCheckboxInfo)
   const [displayPropertyTypes, setDisplayPropertyTypes] = useState(false)
 
   const toggleBedrooms = () => {
@@ -33,6 +42,11 @@ const HeroFormLaptop = () => {
   }
   const togglePropertyTypes = () => {
     setDisplayPropertyTypes((prev) => (prev = !prev))
+    setDisplayPriceRange(false)
+    setDisplayBedrooms(false)
+  }
+  const closeRest = () => {
+    setDisplayPropertyTypes(false)
     setDisplayPriceRange(false)
     setDisplayBedrooms(false)
   }
@@ -57,6 +71,71 @@ const HeroFormLaptop = () => {
     }
   }
 
+  const handleAllCheckbox = () => {
+    if (allCheckboxState.selected === true) {
+      return
+    } else {
+      const removeSelected = checkboxesState.map((item) =>
+        item.selected === true ? { ...item, selected: false } : item
+      )
+      const makeValid = removeSelected.map((item) =>
+        item ? { ...item, valid: true } : item
+      )
+
+      setPropertyNameTypes(makeValid)
+
+      const allCheckox = {
+        ...allCheckboxState,
+        selected: !allCheckboxState.selected,
+      }
+
+      setPropertyNameTypes(["Show all"])
+      setAllCheckboxState(allCheckox)
+    }
+  }
+
+  const handleCheckboxes = (id) => {
+    if (allCheckboxState.selected === true) {
+      setAllCheckboxState({ ...allCheckboxState, selected: false })
+      const updatedCheckboxes = checkboxesState.map((checkbox) =>
+        checkbox.id === id
+          ? {
+              ...checkbox,
+              selected: !checkbox.selected,
+              valid: !checkbox.selected,
+            }
+          : { ...checkbox, valid: false }
+      )
+
+      setCheckboxesState(updatedCheckboxes)
+      const validNames = updatedCheckboxes.filter(
+        (item) => item.selected === true
+      )
+      const displayNames = validNames.map((item) => item.name)
+      setPropertyNameTypes(displayNames)
+    } else {
+      // setAllCheckboxState({ ...allCheckboxState, selected: false })
+      const updatedCheckboxes = checkboxesState.map((checkbox) =>
+        checkbox.id === id
+          ? {
+              ...checkbox,
+              selected: !checkbox.selected,
+              valid: !checkbox.selected,
+            }
+          : { ...checkbox }
+      )
+
+      setCheckboxesState(updatedCheckboxes)
+      const validNames = updatedCheckboxes.filter(
+        (item) => item.selected === true
+      )
+      const displayNames = validNames.map((item) => item.name)
+      setPropertyNameTypes(displayNames)
+    }
+  }
+
+  console.log(checkboxesState)
+
   const submitSearch = (e) => {
     e.preventDefault()
     console.log("submitted")
@@ -71,7 +150,7 @@ const HeroFormLaptop = () => {
             <span className='font-medium'>UK</span>
           </p>
           {/* FORM */}
-          <form className=''>
+          <form onSubmit={submitSearch}>
             {/* BUTTONS */}
             <div className='ml-8 flex items-center justify-start gap-2'>
               <button
@@ -99,7 +178,9 @@ const HeroFormLaptop = () => {
             <div className='relative mx-8 -mb-24 mt-4 flex h-[98px] items-center justify-start rounded  border border-black border-opacity-30 bg-white'>
               {/* SEARCH ADDRESS */}
               {/* --------------------------- */}
-              <fieldset className='relative border-r border-black border-opacity-30'>
+              <fieldset
+                onClick={closeRest}
+                className='relative border-r border-black border-opacity-30'>
                 <label htmlFor='search-area'>
                   <p className='absolute top-4 left-4 text-sm font-medium tracking-wide text-myBlue'>
                     Search area
@@ -173,10 +254,10 @@ const HeroFormLaptop = () => {
                 </div>
               </div>
               {/* PRICE RANGE DROPDOWN DIV */}
-              <div className='absolute right-[432px] top-[105px] rounded bg-white'>
+              <div className='absolute right-[446px] top-[105px] rounded bg-white'>
                 {displayPriceRange && (
                   <div className='m-5 flex items-center gap-5'>
-                    {/* MINIMUM BEDROOMS */}
+                    {/* MINIMUM PRICE */}
                     <div className='relative w-56'>
                       <p className='pointer-events-none absolute top-3 left-3 text-sm tracking-wide text-myBlue'>
                         Minimum price
@@ -189,7 +270,7 @@ const HeroFormLaptop = () => {
                         ))}
                       </select>
                     </div>
-                    {/* MAXIMUM BEDROOMS */}
+                    {/* MAXIMUM PRICE */}
                     <div className='relative w-56'>
                       <p className='pointer-events-none absolute left-3 top-3 text-sm tracking-wide text-myBlue'>
                         Maximum price
@@ -214,41 +295,32 @@ const HeroFormLaptop = () => {
                   Property type
                 </p>
                 <div className='mt-3 flex items-center justify-between'>
-                  <p>Show all</p>
+                  <p>{propertyNameTypes}</p>
                   <MdKeyboardArrowDown className='pointer-events-none text-3xl' />
                 </div>
               </div>
               {/* PROPERTY TYPES DROPDOWN DIV */}
-              <div className='absolute left-[432px] top-[105px] rounded bg-white'>
+              <div className='absolute right-[117px] top-[105px] rounded bg-white'>
                 {displayPropertyTypes && (
-                  <div className='m-5 flex items-center gap-5'>
-                    {/* MINIMUM BEDROOMS */}
-                    <div className='relative w-56'>
-                      <p className='pointer-events-none absolute top-3 left-3 text-sm tracking-wide text-myBlue'>
-                        Minimum price
-                      </p>
-                      <select
-                        id='bedrooms'
-                        className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-3 pt-7 text-lg font-medium text-myBlue'>
-                        {bedrooms.map((room) => (
-                          <Option key={room + 1} optionName={room} />
-                        ))}
-                      </select>
+                  <>
+                    <div className='m-5 grid grid-cols-2 gap-5'>
+                      <TheAllCheckbox
+                        allCheckbox={allCheckboxState}
+                        handleAllCheckbox={handleAllCheckbox}
+                      />
+                      {checkboxesState.map((checkbox, index) => {
+                        return (
+                          <Checkbox
+                            key={index + checkbox.name}
+                            handleCheckboxes={handleCheckboxes}
+                            name={checkbox.name}
+                            id={checkbox.id}
+                            selected={checkbox.selected}
+                          />
+                        )
+                      })}
                     </div>
-                    {/* MAXIMUM BEDROOMS */}
-                    <div className='relative w-56'>
-                      <p className='pointer-events-none absolute left-3 top-3 text-sm tracking-wide text-myBlue'>
-                        Maximum price
-                      </p>
-                      <select
-                        id='bedrooms'
-                        className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-3 pt-7 text-lg font-medium text-myBlue'>
-                        {bedrooms.map((room) => (
-                          <Option key={room + 1} optionName={room} />
-                        ))}
-                      </select>
-                    </div>
-                  </div>
+                  </>
                 )}
               </div>
               {/* BUTTON */}

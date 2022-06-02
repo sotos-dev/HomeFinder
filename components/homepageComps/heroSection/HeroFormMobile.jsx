@@ -104,7 +104,7 @@ const HeroFormMobile = () => {
                 <MdKeyboardArrowDown className='pointer-events-none absolute bottom-1 right-4 text-3xl' />
                 <select
                   id='bedrooms'
-                  className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-4 pt-6 text-lg'>
+                  className='h-16 w-full appearance-none rounded border border-myBlue border-opacity-30 bg-white pl-4 pt-6 text-lg'>
                   {bedrooms.map((room) => (
                     <Option key={room + 1} optionName={room} />
                   ))}
