@@ -1,5 +1,3 @@
-import Image from "next/image"
-import HeroImage from "../../../assets/images/hero-image.jpg"
 import { MdKeyboardArrowDown } from "react-icons/md"
 import {
   bedrooms,
@@ -19,6 +17,25 @@ const HeroFormLaptop = () => {
   const [selectValue, setSelectValue] = useState("month")
   const [monthly, setMonthly] = useState(true)
   const [weekly, setWeekly] = useState(false)
+  const [displayBedrooms, setDisplayBedrooms] = useState(false)
+  const [displayPriceRange, setDisplayPriceRange] = useState(false)
+  const [displayPropertyTypes, setDisplayPropertyTypes] = useState(false)
+
+  const toggleBedrooms = () => {
+    setDisplayBedrooms((prev) => (prev = !prev))
+    setDisplayPropertyTypes(false)
+    setDisplayPriceRange(false)
+  }
+  const togglePriceRange = () => {
+    setDisplayPriceRange((prev) => (prev = !prev))
+    setDisplayPropertyTypes(false)
+    setDisplayBedrooms(false)
+  }
+  const togglePropertyTypes = () => {
+    setDisplayPropertyTypes((prev) => (prev = !prev))
+    setDisplayPriceRange(false)
+    setDisplayBedrooms(false)
+  }
 
   const saleButton = () => {
     setForSaleButton(true)
@@ -47,48 +64,44 @@ const HeroFormLaptop = () => {
 
   return (
     <>
-      asdfasdfsdf
-      <div>
-        <Image className='-z-10' src={HeroImage} />
-      </div>
-      <Container>
+      <div className='z-20 mx-auto hidden max-w-7xl lg:block'>
         <div className='sm:px-5'>
-          <div className='mx-auto -mt-7 w-full rounded-3xl bg-white p-5 shadow-lg'>
-            {/* Header */}
-            <h1 className='ml-2 text-left text-3xl text-myBlue'>
-              Find your dream home
-            </h1>
-            <p className='mt-2 ml-2 text-left opacity-70'>
-              Search properties for sale or rent in the{" "}
-              <span className='font-medium'>UK</span>
-            </p>
-            {/* Form */}
-            <form onSubmit={submitSearch} className='mt-5'>
-              <div className='grid grid-cols-2 gap-4'>
-                {/* For Sale/Rent Buttons */}
-                <button
-                  onClick={saleButton}
-                  type='button'
-                  className={`${
-                    forSaleButton
-                      ? "bg-myBlue text-white"
-                      : "bg-gray-200 text-black"
-                  } rounded-md py-5 text-lg`}>
-                  For sale
-                </button>
-                <button
-                  onClick={rentButton}
-                  type='button'
-                  className={`${
-                    toRentButton
-                      ? "bg-myBlue text-white"
-                      : "bg-gray-200 text-black"
-                  } rounded-md py-5 text-lg`}>
-                  To rent
-                </button>
-                {/* Search Area Input */}
-                <fieldset className='relative col-span-2'>
-                  <p className='absolute top-2 left-4 text-sm text-myBlue'>
+          <p className='my-3 ml-8 text-left text-lg font-medium text-myBlue '>
+            Search properties for sale or rent in the{" "}
+            <span className='font-medium'>UK</span>
+          </p>
+          {/* FORM */}
+          <form className=''>
+            {/* BUTTONS */}
+            <div className='ml-8 flex items-center justify-start gap-2'>
+              <button
+                onClick={saleButton}
+                type='button'
+                className={`${
+                  forSaleButton
+                    ? "bg-myBlue text-white"
+                    : "bg-gray-200 text-black"
+                } rounded-md py-4 px-7 text-lg`}>
+                For sale
+              </button>
+              <button
+                onClick={rentButton}
+                type='button'
+                className={`${
+                  toRentButton
+                    ? "bg-myBlue text-white"
+                    : "bg-gray-200 text-black"
+                } rounded-md py-4 px-7 text-lg`}>
+                To rent
+              </button>
+            </div>
+            {/* FORM AREA */}
+            <div className='relative mx-8 -mb-24 mt-4 flex h-[98px] items-center justify-start rounded  border border-black border-opacity-30 bg-white'>
+              {/* SEARCH ADDRESS */}
+              {/* --------------------------- */}
+              <fieldset className='relative border-r border-black border-opacity-30'>
+                <label htmlFor='search-area'>
+                  <p className='absolute top-4 left-4 text-sm font-medium tracking-wide text-myBlue'>
                     Search area
                   </p>
                   <input
@@ -96,107 +109,165 @@ const HeroFormLaptop = () => {
                     placeholder='eg. Oxford or NW3'
                     autoComplete='off'
                     id='search-area'
-                    className='h-16 w-full rounded-md border border-myBlue border-opacity-30 bg-white pl-4 pt-6 text-lg'
+                    className='h-24 max-w-[250px] border-none bg-slate-300 pl-4 pt-7 text-xl'
                   />
-                </fieldset>
-                {/* Bedrooms */}
-                <fieldset
-                  className={`${
-                    toRentButton
-                      ? "col-span-2 row-start-4"
-                      : "col-span-1 row-start-3"
-                  } relative`}>
-                  <p className='pointer-events-none absolute top-2 left-4 text-sm text-myBlue'>
-                    Bedrooms
-                  </p>
-                  <MdKeyboardArrowDown className='pointer-events-none absolute bottom-1 right-4 text-3xl' />
-                  <select
-                    id='bedrooms'
-                    className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-4 pt-6 text-lg'>
-                    {bedrooms.map((room) => (
-                      <Option key={room + 1} optionName={room} />
-                    ))}
-                  </select>
-                </fieldset>
-                {/* Max Price - Sales */}
-                {forSaleButton && (
-                  <fieldset className='relative col-start-2'>
-                    <p className='pointer-events-none absolute top-2 left-4 text-sm text-myBlue'>
-                      Max price
-                    </p>
-                    <MdKeyboardArrowDown className='pointer-events-none absolute bottom-1 right-4 text-3xl' />
-                    <select
-                      selected
-                      className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-4 pt-6 text-lg'>
-                      {totalMaxPrice.map((price) => {
-                        return <Option key={price + 1} optionName={price} />
-                      })}
-                    </select>
-                  </fieldset>
-                )}
-                {/* Max Price - Rentals | Monthly or Weekly */}
-                {toRentButton && (
-                  <fieldset className='relative col-start-2'>
-                    <p className='pointer-events-none absolute top-2 left-4 text-sm text-myBlue'>
-                      Max price
-                    </p>
-                    <MdKeyboardArrowDown className='pointer-events-none absolute bottom-1 right-4 text-3xl' />
-                    <select
-                      selected
-                      className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-4 pt-6 text-lg'>
-                      {monthly &&
-                        pricePerMonth.map((price) => {
-                          return <Option key={price + 1} optionName={price} />
-                        })}
-                      {weekly &&
-                        pricePerWeek.map((price) => {
-                          return <Option key={price + 1} optionName={price} />
-                        })}
-                    </select>
-                  </fieldset>
-                )}
-                {/* Price Range - Rentals Only*/}
-                {toRentButton && (
-                  <fieldset className='relative col-start-1 row-start-3'>
-                    <p className='pointer-events-none absolute top-2 left-4 text-sm text-myBlue'>
-                      Price per
-                    </p>
-                    <MdKeyboardArrowDown className='pointer-events-none absolute bottom-1 right-4 text-3xl' />
-                    <select
-                      value={selectValue}
-                      onChange={changeMonthlyWeekly}
-                      className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-4 pt-6 text-lg'>
-                      <option value='month'>Month</option>
-                      <option value='week'>Week</option>
-                    </select>
-                  </fieldset>
-                )}
-                {/* Property Types */}
-                <fieldset className='relative col-span-2 p-1 '>
-                  <p>Property type</p>
-                  <div className='mt-4 grid grid-cols-2 gap-y-6'>
-                    {propertyType.map((property, index) => {
-                      return (
-                        <Radios
-                          key={index + 1}
-                          radioName={property}
-                          radioId={property}
-                        />
-                      )
-                    })}
+                </label>
+              </fieldset>
+              {/* BEDROOMS */}
+              {/* --------------------------- */}
+              <div
+                onClick={toggleBedrooms}
+                className='relative h-24 grow border-r border-cyan-600 bg-slate-200 pl-4 pt-7 text-xl'>
+                <p className='absolute top-4 left-4 text-sm tracking-wide text-myBlue'>
+                  Bedrooms
+                </p>
+                <div className='mt-3 flex items-center justify-between'>
+                  <p>Any beds</p>
+                  <MdKeyboardArrowDown className='pointer-events-none text-3xl' />
+                </div>
+              </div>
+              {/* BEDROOMS DROPDOWN DIV */}
+              <div className='absolute left-[251px] top-[105px] rounded bg-white'>
+                {displayBedrooms && (
+                  <div className='m-5 flex items-center gap-5'>
+                    {/* MINIMUM BEDROOMS */}
+                    <div className='relative w-56'>
+                      <p className='pointer-events-none absolute top-3 left-3 text-sm tracking-wide text-myBlue'>
+                        Minimum beds
+                      </p>
+                      <select
+                        id='bedrooms'
+                        className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-3 pt-7 text-lg font-medium text-myBlue'>
+                        {bedrooms.map((room) => (
+                          <Option key={room + 1} optionName={room} />
+                        ))}
+                      </select>
+                    </div>
+                    {/* MAXIMUM BEDROOMS */}
+                    <div className='relative w-56'>
+                      <p className='pointer-events-none absolute left-3 top-3 text-sm tracking-wide text-myBlue'>
+                        Maximum beds
+                      </p>
+                      <select
+                        id='bedrooms'
+                        className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-3 pt-7 text-lg font-medium text-myBlue'>
+                        {bedrooms.map((room) => (
+                          <Option key={room + 1} optionName={room} />
+                        ))}
+                      </select>
+                    </div>
                   </div>
-                </fieldset>
-                {/* Search Button */}
-                <button
-                  type='submit'
-                  className='col-span-2 rounded-md bg-myBlue py-3 px-6 text-white'>
-                  Find your home
+                )}
+              </div>
+              {/* PRICE RANGE */}
+              {/* --------------------------- */}
+              <div
+                onClick={togglePriceRange}
+                className='relative h-24 grow border-r border-cyan-600 bg-slate-200 pl-4 pt-7 text-xl'>
+                <p className='absolute top-4 left-4 text-sm tracking-wide text-myBlue'>
+                  Price range
+                </p>
+                <div className='mt-3 flex items-center justify-between'>
+                  <p>Any price</p>
+                  <MdKeyboardArrowDown className='pointer-events-none text-3xl' />
+                </div>
+              </div>
+              {/* PRICE RANGE DROPDOWN DIV */}
+              <div className='absolute right-[432px] top-[105px] rounded bg-white'>
+                {displayPriceRange && (
+                  <div className='m-5 flex items-center gap-5'>
+                    {/* MINIMUM BEDROOMS */}
+                    <div className='relative w-56'>
+                      <p className='pointer-events-none absolute top-3 left-3 text-sm tracking-wide text-myBlue'>
+                        Minimum price
+                      </p>
+                      <select
+                        id='bedrooms'
+                        className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-3 pt-7 text-lg font-medium text-myBlue'>
+                        {bedrooms.map((room) => (
+                          <Option key={room + 1} optionName={room} />
+                        ))}
+                      </select>
+                    </div>
+                    {/* MAXIMUM BEDROOMS */}
+                    <div className='relative w-56'>
+                      <p className='pointer-events-none absolute left-3 top-3 text-sm tracking-wide text-myBlue'>
+                        Maximum price
+                      </p>
+                      <select
+                        id='bedrooms'
+                        className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-3 pt-7 text-lg font-medium text-myBlue'>
+                        {bedrooms.map((room) => (
+                          <Option key={room + 1} optionName={room} />
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                )}
+              </div>
+              {/* PROPERTY TYPES */}
+              {/* --------------------------- */}
+              <div
+                onClick={togglePropertyTypes}
+                className='relative h-24 grow border-r border-cyan-600 bg-slate-200 pl-4 pt-7 text-xl'>
+                <p className='absolute top-4 left-4 text-sm tracking-wide text-myBlue'>
+                  Property type
+                </p>
+                <div className='mt-3 flex items-center justify-between'>
+                  <p>Show all</p>
+                  <MdKeyboardArrowDown className='pointer-events-none text-3xl' />
+                </div>
+              </div>
+              {/* PROPERTY TYPES DROPDOWN DIV */}
+              <div className='absolute left-[432px] top-[105px] rounded bg-white'>
+                {displayPropertyTypes && (
+                  <div className='m-5 flex items-center gap-5'>
+                    {/* MINIMUM BEDROOMS */}
+                    <div className='relative w-56'>
+                      <p className='pointer-events-none absolute top-3 left-3 text-sm tracking-wide text-myBlue'>
+                        Minimum price
+                      </p>
+                      <select
+                        id='bedrooms'
+                        className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-3 pt-7 text-lg font-medium text-myBlue'>
+                        {bedrooms.map((room) => (
+                          <Option key={room + 1} optionName={room} />
+                        ))}
+                      </select>
+                    </div>
+                    {/* MAXIMUM BEDROOMS */}
+                    <div className='relative w-56'>
+                      <p className='pointer-events-none absolute left-3 top-3 text-sm tracking-wide text-myBlue'>
+                        Maximum price
+                      </p>
+                      <select
+                        id='bedrooms'
+                        className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-3 pt-7 text-lg font-medium text-myBlue'>
+                        {bedrooms.map((room) => (
+                          <Option key={room + 1} optionName={room} />
+                        ))}
+                      </select>
+                    </div>
+                  </div>
+                )}
+              </div>
+              {/* BUTTON */}
+              {/* ---------------------------- */}
+              <div className='mx-auto px-4'>
+                <button className='rounded bg-myOrange px-16 py-4 text-lg font-medium text-white'>
+                  Search
                 </button>
               </div>
-            </form>
+            </div>
+          </form>
+
+          <div className='relative -z-10'>
+            <h1 className='absolute top-20 left-10 ml-2 text-left text-4xl font-semibold tracking-wide text-white'>
+              We know what a home is really worth
+            </h1>
           </div>
         </div>
-      </Container>
+      </div>
     </>
   )
 }

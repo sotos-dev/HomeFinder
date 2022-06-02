@@ -1,7 +1,7 @@
 const Divider = () => {
   return (
     <>
-      <div className='w-11/12 m-auto h-[0.1px] bg-slate-300'></div>
+      <div className='m-auto h-[0.1px] w-11/12 bg-slate-300'></div>
     </>
   )
 }

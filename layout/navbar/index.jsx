@@ -26,7 +26,7 @@ const NavBar = () => {
           <FcMenu size={35} />
         </button>
         {/* Tablet&Up-NavMenu */}
-        <nav className={`hidden md:block`}>
+        <nav className='hidden md:block'>
           <ul className='flex items-center justify-end'>
             <Navlinks
               name='My Home'

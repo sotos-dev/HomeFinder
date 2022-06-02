@@ -6,7 +6,7 @@ const Radios = ({ radioName, radioId }) => {
           type='radio'
           name='property-types'
           id={radioId}
-          className='p-2 text-myBlue focus:ring-myBlue'
+          className='p-2 text-myOrange focus:ring-myOrange'
         />
         <label className='tracking-wide' htmlFor={radioId}>
           {radioName}
