@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { MdKeyboardArrowDown } from "react-icons/md"
 import {
-  bedrooms,
+  maxBedrooms,
   totalMaxPrice,
-  pricePerMonth,
-  pricePerWeek,
+  maxPricePerMonth,
+  maxPricePerWeek,
   propertyType,
-} from "../../../utils/homepageMobileData"
+} from "../../../utils/homepageFormData"
 import Option from "./Option"
 import Radios from "./Radios"
 
@@ -45,7 +45,7 @@ const HeroFormMobile = () => {
   return (
     <>
       <div className='md:px-14 lg:hidden'>
-        <div className='mx-auto -mt-12 w-full rounded-2xl bg-white px-7 py-4 shadow-lg'>
+        <div className='mx-auto -mt-12 w-full rounded-2xl bg-neutral-50 px-7 py-4 shadow-lg'>
           {/* Header */}
           <h1 className='text-left text-3xl font-semibold text-myBlue'>
             We know what a home is really worth
@@ -105,7 +105,7 @@ const HeroFormMobile = () => {
                 <select
                   id='bedrooms'
                   className='h-16 w-full appearance-none rounded border border-myBlue border-opacity-30 bg-white pl-4 pt-6 text-lg'>
-                  {bedrooms.map((room) => (
+                  {maxBedrooms.map((room) => (
                     <Option key={room + 1} optionName={room} />
                   ))}
                 </select>
@@ -137,11 +137,11 @@ const HeroFormMobile = () => {
                     selected
                     className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-4 pt-6 text-lg'>
                     {monthly &&
-                      pricePerMonth.map((price) => {
+                      maxPricePerMonth.map((price) => {
                         return <Option key={price + 1} optionName={price} />
                       })}
                     {weekly &&
-                      pricePerWeek.map((price) => {
+                      maxPricePerWeek.map((price) => {
                         return <Option key={price + 1} optionName={price} />
                       })}
                   </select>
@@ -181,7 +181,7 @@ const HeroFormMobile = () => {
               {/* Search Button */}
               <button
                 type='submit'
-                className='col-span-2 rounded-md bg-myOrange py-3 px-6 text-white'>
+                className='col-span-2 rounded-md bg-myOrange py-3 px-6 text-lg font-medium text-white'>
                 Find your home
               </button>
             </div>

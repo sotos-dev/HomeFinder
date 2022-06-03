@@ -9,17 +9,17 @@ const TheAllCheckbox = ({
 
   return (
     <>
-      <div className='flex items-center gap-3'>
+      <div className='flex items-center justify-start gap-3 '>
         <input
+          className='rounded p-4 text-myBlue focus:ring-myBlue'
           onChange={() => handleAllCheckbox()}
           type='checkbox'
           name={name}
           checked={selected}
           value={name}
           id={id}
-          className='p-2'
         />
-        <label className='' htmlFor={id}>
+        <label className='text-lg' htmlFor={id}>
           {newName}
         </label>
       </div>

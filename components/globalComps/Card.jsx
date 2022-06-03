@@ -7,7 +7,7 @@ import { BiBath } from "react-icons/bi"
 const Card = () => {
   return (
     <>
-      <div className='rounded bg-gray-200 shadow-lg'>
+      <div className='rounded bg-stone-100 shadow-md shadow-stone-200'>
         {/* Card Image */}
         <Image src={HeroImage} alt='house' className='rounded' />
         {/* Card Content */}
@@ -40,7 +40,7 @@ const Card = () => {
           </p>
           {/* Listing Date */}
           <p className='mt-3 opacity-50'>Listed on 2nd Jun 2022</p>
-          <button className='mt-5 rounded bg-myBlue py-2 px-8 text-lg font-medium text-white'>
+          <button className='mt-5 rounded-md bg-myBlue py-2 px-8 text-lg font-medium text-white lg:py-3'>
             See property
           </button>
         </div>

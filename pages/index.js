@@ -11,9 +11,9 @@ const HomePage = () => {
       {/* Hero section */}
       <HeroSection />
       {/* Featured */}
-      {/* <Featured /> */}
+      <Featured />
       {/* Footer */}
-      {/* <Footer /> */}
+      <Footer />
     </>
   )
 }

@@ -8,7 +8,7 @@ const Checkbox = ({ name, id, selected, handleCheckboxes }) => {
     <>
       <div className='flex items-center justify-start gap-3'>
         <input
-          className='p-2'
+          className='rounded p-4 text-myBlue focus:ring-myBlue'
           onChange={() => handleCheckboxes(id)}
           type='checkbox'
           name={name}
@@ -16,7 +16,9 @@ const Checkbox = ({ name, id, selected, handleCheckboxes }) => {
           value={name}
           id={id}
         />
-        <label htmlFor={id}>{newName}</label>
+        <label className='text-lg' htmlFor={id}>
+          {newName}
+        </label>
       </div>
     </>
   )

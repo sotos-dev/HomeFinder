@@ -1,19 +1,18 @@
 import Container from "../../../ui/container"
-import Wrapper from "../../../ui/wrapper"
 import Card from "../../globalComps/Card"
 
 const Featured = () => {
   return (
     <>
       <Container>
-        <Wrapper>
-          <h2 className='mt-8 mb-3 text-xl font-medium'>Featured properties</h2>
-          <div className='grid grid-cols-1 gap-y-10 sm:grid-cols-2 sm:gap-x-5 lg:grid-cols-3'>
-            <Card />
-            <Card />
-            <Card />
-          </div>
-        </Wrapper>
+        <h2 className='mb-3 text-xl font-medium lg:text-2xl'>
+          Featured properties
+        </h2>
+        <div className='grid grid-cols-1 gap-y-10 sm:grid-cols-2 sm:gap-x-5 md:gap-x-8 lg:grid-cols-3 xl:gap-x-10'>
+          <Card />
+          <Card />
+          <Card />
+        </div>
       </Container>
     </>
   )

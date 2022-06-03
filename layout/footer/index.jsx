@@ -1,19 +1,21 @@
 import Link from "next/link"
-import Container from "../../ui/container"
 import { BiCopyright } from "react-icons/bi"
+import Container from "../../ui/container"
 
 const Footer = () => {
   return (
     <>
-      <Container>
-        <div className='flex items-center justify-start gap-2'>
-          <BiCopyright />
-          <span>{new Date().getFullYear()}</span>
-          <Link href='/'>
-            <span>Created by Sotos</span>
-          </Link>
-        </div>
-      </Container>
+      <div className='bg-stone-100'>
+        <Container>
+          <div className='flex items-center justify-start gap-2'>
+            <BiCopyright />
+            <span>{new Date().getFullYear()}</span>
+            <Link href='/'>
+              <span>Created by Sotos</span>
+            </Link>
+          </div>
+        </Container>
+      </div>
     </>
   )
 }
