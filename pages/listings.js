@@ -1,8 +1,9 @@
 import { useRouter } from "next/router"
+const router = useRouter()
+const { query } = router
 
+console.log("This is the query here" + query)
 const Listings = () => {
-  const router = useRouter()
-
   return (
     <>
       <div>Listings</div>

@@ -1558,7 +1558,29 @@ export const checkboxesInfo = [
 ]
 
 // Mobile & Tablet
-export const propertyType = ["Show all", "Houses", "Flats", "Farms/land"]
+export const propertyType = {
+  propertyTypes: [
+    {
+      name: "Show all",
+      value:
+        "flats,farmsland,terraced,semidetached,detached,bungalow,park_home,offices,retail,industrial,hospitality,land",
+    },
+    {
+      name: "Houses",
+      value: "terraced,semidetached,detached,bungalow,park_home",
+    },
+    {
+      name: "Flats",
+      value: "flats",
+    },
+    {
+      name: "Farms/land",
+      value: "farmsland",
+    },
+  ],
+  placeholder: "Property types",
+  queryName: "property_type",
+}
 
 // Laptop and Up
 export const theAllCheckboxInfo = {

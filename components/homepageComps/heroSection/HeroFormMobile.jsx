@@ -10,15 +10,30 @@ import {
 } from "../../../utils/homepageFormData"
 import Option from "./Option"
 import Radios from "./Radios"
+import TestComp from "./TestComp"
+import { fetchApi } from "../../../utils/fetchApi"
 
 const HeroFormMobile = () => {
   const router = useRouter()
 
+  // These Handle the Sales/Rent buttons as well as the Monthly/Weekly pricing on rentals
   const [forSaleButton, setForSaleButton] = useState(true)
   const [toRentButton, setToRentButton] = useState(false)
   const [selectValue, setSelectValue] = useState("month")
   const [monthly, setMonthly] = useState(true)
   const [weekly, setWeekly] = useState(false)
+
+  // User Input Values
+  const [searchAreaSelected, setSearchAreaSelected] = useState("")
+  const [bedroomsSelected, setBedroomsSelected] = useState("")
+  const [salesMaxPriceSelected, setSalesMaxPriceSelected] = useState("")
+  const [rentMonthlyPriceSelected, setRentMonthlyPriceSelected] = useState("")
+  const [rentWeeklyPriceSelected, setRentWeeklyPriceSelected] = useState("")
+  const [propertyTypeSelected, setPropertyTypeSelected] = useState(
+    "flats,farmsland,terraced,semidetached,detached,bungalow,park_home,land"
+  )
+  const isRadioSelected = (value) => propertyTypeSelected === value
+  const handleRadioClick = (e) => setPropertyTypeSelected(e.target.value)
 
   const saleButton = () => {
     setForSaleButton(true)
@@ -42,9 +57,48 @@ const HeroFormMobile = () => {
 
   const submitSearch = (e) => {
     e.preventDefault()
+    const path = router.pathname
+    const { query } = router
 
+    const userInput = {}
+
+    if (forSaleButton) {
+      userInput = {
+        listing_status: "sale",
+        area: searchAreaSelected,
+        maximum_beds: bedroomsSelected,
+        maximum_price: salesMaxPriceSelected,
+        property_type: propertyTypeSelected,
+      }
+    } else if (toRentButton) {
+      if (monthly) {
+        const userInput = {
+          listing_status: rent,
+          area: searchAreaSelected,
+          maximum_beds: bedroomsSelected,
+          maximum_price: rentMonthlyPriceSelected,
+          property_type: propertyTypeSelected,
+        }
+      } else if (weekly) {
+        const userInput = {
+          listing_status: rent,
+          area: searchAreaSelected,
+          maximum_beds: bedroomsSelected,
+          maximum_price: rentWeeklyPriceSelected,
+          property_type: propertyTypeSelected,
+        }
+      }
+    }
+
+    for (const [key, value] of Object.entries(userInput)) {
+      // console.log(`the key is: ${key}`)
+      // console.log(`the value is: ${value}`)
+      query[key] = value
+    }
+    console.log(query)
     console.log("submitted")
-    router.push(`/listings?`)
+
+    router.push({ pathname: "/listings", query })
   }
 
   return (
@@ -90,6 +144,8 @@ const HeroFormMobile = () => {
                 </p>
                 <input
                   type='text'
+                  value={searchAreaSelected}
+                  onChange={(e) => setSearchAreaSelected(e.target.value)}
                   placeholder='eg. Oxford or NW3'
                   autoComplete='off'
                   id='search-area'
@@ -109,9 +165,15 @@ const HeroFormMobile = () => {
                 <MdKeyboardArrowDown className='pointer-events-none absolute bottom-1 right-4 text-3xl' />
                 <select
                   id='bedrooms'
+                  value={bedroomsSelected}
+                  onChange={(e) => setBedroomsSelected(e.target.value)}
                   className='h-16 w-full appearance-none rounded border border-myBlue border-opacity-30 bg-white pl-4 pt-6 text-lg'>
                   {maxBedrooms.maxBeds.map((room) => (
-                    <Option key={room.name + 1} optionName={room.name} />
+                    <Option
+                      key={room.name + 1}
+                      optionName={room.name}
+                      optionValue={room.value}
+                    />
                   ))}
                 </select>
               </fieldset>
@@ -123,11 +185,16 @@ const HeroFormMobile = () => {
                   </p>
                   <MdKeyboardArrowDown className='pointer-events-none absolute bottom-1 right-4 text-3xl' />
                   <select
-                    selected
+                    value={salesMaxPriceSelected}
+                    onChange={(e) => setSalesMaxPriceSelected(e.target.value)}
                     className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-4 pt-6 text-lg'>
                     {totalMaxPrice.totalMaximumPrice.map((price) => {
                       return (
-                        <Option key={price.name + 1} optionName={price.name} />
+                        <Option
+                          key={price.name + 1}
+                          optionName={price.name}
+                          optionValue={price.value}
+                        />
                       )
                     })}
                   </select>
@@ -140,18 +207,42 @@ const HeroFormMobile = () => {
                     Max price
                   </p>
                   <MdKeyboardArrowDown className='pointer-events-none absolute bottom-1 right-4 text-3xl' />
-                  <select
-                    selected
-                    className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-4 pt-6 text-lg'>
-                    {monthly &&
-                      maxPricePerMonth.map((price) => {
-                        return <Option key={price + 1} optionName={price} />
+                  {monthly && (
+                    <select
+                      value={rentMonthlyPriceSelected}
+                      onChange={(e) =>
+                        setRentMonthlyPriceSelected(e.target.value)
+                      }
+                      className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-4 pt-6 text-lg'>
+                      {maxPricePerMonth.totalMaximumPrice.map((price) => {
+                        return (
+                          <Option
+                            key={price.name + 1}
+                            optionName={price.name}
+                            optionValue={price.value}
+                          />
+                        )
                       })}
-                    {weekly &&
-                      maxPricePerWeek.map((price) => {
-                        return <Option key={price + 1} optionName={price} />
+                    </select>
+                  )}
+                  {weekly && (
+                    <select
+                      value={rentWeeklyPriceSelected}
+                      onChange={(e) =>
+                        setRentWeeklyPriceSelected(e.target.value)
+                      }
+                      className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-4 pt-6 text-lg'>
+                      {maxPricePerWeek.totalMaximumPrice.map((price) => {
+                        return (
+                          <Option
+                            key={price.name + 1}
+                            optionName={price.name}
+                            optionValue={price.value}
+                          />
+                        )
                       })}
-                  </select>
+                    </select>
+                  )}
                 </fieldset>
               )}
               {/* Price Range - Rentals Only*/}
@@ -174,13 +265,26 @@ const HeroFormMobile = () => {
               <fieldset className='relative col-span-2 p-1 '>
                 <p>Property type</p>
                 <div className='mt-4 grid grid-cols-2 gap-y-6'>
-                  {propertyType.map((property, index) => {
+                  {propertyType.propertyTypes.map((property, index) => {
                     return (
-                      <Radios
+                      <div
                         key={index + 1}
-                        radioName={property}
-                        radioId={property}
-                      />
+                        className='flex items-center justify-start gap-2'>
+                        <input
+                          value={property.value}
+                          type='radio'
+                          name='property-types'
+                          id={property.name}
+                          checked={isRadioSelected(property.value)}
+                          onChange={handleRadioClick}
+                          className='p-2 text-myOrange focus:ring-myOrange'
+                        />
+                        <label
+                          className='tracking-wide'
+                          htmlFor={property.name}>
+                          {property.name}
+                        </label>
+                      </div>
                     )
                   })}
                 </div>
@@ -194,9 +298,29 @@ const HeroFormMobile = () => {
             </div>
           </form>
         </div>
+        <TestComp />
       </div>
     </>
   )
 }
 
 export default HeroFormMobile
+
+// export async function getServerSideProps({ userInput }) {
+//   const area = userInput.area || "London"
+//   const listing_status = userInput.listing_status || "sale"
+//   const maximum_beds = userInput.maximum_beds || "10"
+//   const maximum_price = userInput.maximum_price || "15000000"
+//   const property_type =
+//     userInput.property_type ||
+//     "flats,farmsland,terraced,semidetached,detached,bungalow,park_home,land"
+
+//   const data = await fetchApi(
+//     `${baseURL}/properties/list?area=${area}&listing_status=${listing_status}&maximum_beds=${maximum_beds}&maximum_price=${maximum_price}&property_type=${property_type}`
+//   )
+//   return {
+//     props: {
+//       searchResults: data
+//     }
+//   }
+// }

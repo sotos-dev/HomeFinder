@@ -1,7 +1,11 @@
-const Option = ({ optionName }) => {
+const Option = ({ optionName, optionValue }) => {
   return (
     <>
-      <option type='text' placeholder='eg. Oxford or NW3' id='search-area'>
+      <option
+        type='text'
+        value={optionValue}
+        placeholder='eg. Oxford or NW3'
+        id='search-area'>
         {optionName}
       </option>
     </>
