@@ -6,7 +6,6 @@ const Featured = ({
     featuredProperties: { listing },
   },
 }) => {
-  console.log(listing)
   return (
     <>
       <Container>
@@ -15,7 +14,7 @@ const Featured = ({
         </h2>
         <div className='grid grid-cols-1 gap-y-10 sm:grid-cols-2 sm:gap-x-5 md:gap-x-8 lg:grid-cols-3 xl:gap-x-10'>
           {listing.map((listing) => {
-            return <Cards listing={listing} />
+            return <Cards key={listing.listing_id} listing={listing} />
           })}
         </div>
       </Container>

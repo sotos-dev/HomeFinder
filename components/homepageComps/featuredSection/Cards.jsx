@@ -10,15 +10,17 @@ const Cards = ({ listing }) => {
       <div className='rounded bg-stone-100 shadow-md shadow-stone-200'>
         {/* Card Image */}
         <Image
+          // blurDataURL
+          // placeholder='blur'
           src={
             listing.image_645_430_url
               ? listing.image_645_430_url
               : PlaceholderImage
           }
           alt='property'
-          width={500}
+          width={400}
           layout='responsive'
-          height={300}
+          height={260}
           className='rounded object-cover'
         />
         {/* Card Content */}

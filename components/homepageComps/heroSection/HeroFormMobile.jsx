@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useRouter } from "next/router"
 import { MdKeyboardArrowDown } from "react-icons/md"
 import {
   maxBedrooms,
@@ -11,6 +12,8 @@ import Option from "./Option"
 import Radios from "./Radios"
 
 const HeroFormMobile = () => {
+  const router = useRouter()
+
   const [forSaleButton, setForSaleButton] = useState(true)
   const [toRentButton, setToRentButton] = useState(false)
   const [selectValue, setSelectValue] = useState("month")
@@ -39,7 +42,9 @@ const HeroFormMobile = () => {
 
   const submitSearch = (e) => {
     e.preventDefault()
+
     console.log("submitted")
+    router.push(`/listings?`)
   }
 
   return (
@@ -105,8 +110,8 @@ const HeroFormMobile = () => {
                 <select
                   id='bedrooms'
                   className='h-16 w-full appearance-none rounded border border-myBlue border-opacity-30 bg-white pl-4 pt-6 text-lg'>
-                  {maxBedrooms.map((room) => (
-                    <Option key={room + 1} optionName={room} />
+                  {maxBedrooms.maxBeds.map((room) => (
+                    <Option key={room.name + 1} optionName={room.name} />
                   ))}
                 </select>
               </fieldset>
@@ -120,8 +125,10 @@ const HeroFormMobile = () => {
                   <select
                     selected
                     className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-4 pt-6 text-lg'>
-                    {totalMaxPrice.map((price) => {
-                      return <Option key={price + 1} optionName={price} />
+                    {totalMaxPrice.totalMaximumPrice.map((price) => {
+                      return (
+                        <Option key={price.name + 1} optionName={price.name} />
+                      )
                     })}
                   </select>
                 </fieldset>

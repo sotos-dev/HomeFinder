@@ -34,8 +34,8 @@ const NavBar = () => {
               icon={<HiHome size={25} />}
             />
             <Navlinks
-              name='Search'
-              destination='/search'
+              name='Listings'
+              destination='/listings'
               icon={<HiSearch size={25} />}
             />
             <Navlinks
@@ -72,8 +72,8 @@ const NavBar = () => {
             />
             <Divider />
             <Navlinks
-              name='Search'
-              destination='/search'
+              name='Listings'
+              destination='/listings'
               icon={<HiSearch size={25} />}
             />
             <Divider />

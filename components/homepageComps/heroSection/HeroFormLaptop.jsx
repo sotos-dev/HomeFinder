@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useRouter } from "next/router"
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md"
 import {
   minBedrooms,
@@ -17,6 +18,8 @@ import Checkbox from "./Checkbox"
 import TheAllCheckbox from "./TheAllCheckbox"
 
 const HeroFormLaptop = () => {
+  const router = useRouter()
+
   const [forSaleButton, setForSaleButton] = useState(true)
   const [toRentButton, setToRentButton] = useState(false)
   const [selectValue, setSelectValue] = useState("month")
@@ -48,7 +51,7 @@ const HeroFormLaptop = () => {
     setDisplayPriceRange(false)
     setDisplayBedrooms(false)
   }
-  const closeRest = () => {
+  const closeDropdowns = () => {
     setDisplayPropertyTypes(false)
     setDisplayPriceRange(false)
     setDisplayBedrooms(false)
@@ -173,6 +176,7 @@ const HeroFormLaptop = () => {
   const submitSearch = (e) => {
     e.preventDefault()
     console.log("submitted")
+    router.push("/listings")
   }
 
   return (
@@ -218,7 +222,7 @@ const HeroFormLaptop = () => {
               {/* --------------------------- */}
               {/* SEARCH ADDRESS */}
               <div
-                onClick={closeRest}
+                onClick={closeDropdowns}
                 className='relative border-r border-black/30'>
                 <label htmlFor='search-area'>
                   <p className='absolute top-4 left-4 text-sm font-medium tracking-wide text-myBlue'>
@@ -253,7 +257,7 @@ const HeroFormLaptop = () => {
                   </div>
                 </div>
                 {/* BEDROOMS DROPDOWN DIV */}
-                <div className='absolute left-0 top-[105px] rounded bg-white'>
+                <div className='absolute left-0 top-[105px] z-20 rounded bg-white'>
                   {displayBedrooms && (
                     <div className='m-5 flex items-center gap-5'>
                       {/* MINIMUM BEDROOMS */}
@@ -265,8 +269,11 @@ const HeroFormLaptop = () => {
                         <select
                           id='bedrooms'
                           className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-3 pt-7 text-lg font-medium text-myBlue'>
-                          {minBedrooms.map((room) => (
-                            <Option key={room + 1} optionName={room} />
+                          {minBedrooms.minBeds.map((room) => (
+                            <Option
+                              key={room.name + 1}
+                              optionName={room.name}
+                            />
                           ))}
                         </select>
                       </div>
@@ -279,8 +286,11 @@ const HeroFormLaptop = () => {
                         <select
                           id='bedrooms'
                           className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-3 pt-7 text-lg font-medium text-myBlue'>
-                          {maxBedrooms.map((room) => (
-                            <Option key={room + 1} optionName={room} />
+                          {maxBedrooms.maxBeds.map((room) => (
+                            <Option
+                              key={room.name + 1}
+                              optionName={room.name}
+                            />
                           ))}
                         </select>
                       </div>
@@ -309,7 +319,7 @@ const HeroFormLaptop = () => {
                 </div>
                 {/* PRICE RANGE DROPDOWN DIV */}
                 {forSaleButton && (
-                  <div className='absolute right-0 top-[105px] rounded bg-white'>
+                  <div className='absolute right-0 top-[105px] z-20 rounded bg-white'>
                     {displayPriceRange && (
                       <div className='m-5 flex items-center gap-5'>
                         {/* MINIMUM PRICE */}
@@ -321,8 +331,11 @@ const HeroFormLaptop = () => {
                           <select
                             id='bedrooms'
                             className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-3 pt-7 text-lg font-medium text-myBlue'>
-                            {totalMinPrice.map((room) => (
-                              <Option key={room + 1} optionName={room} />
+                            {totalMinPrice.totalMinimumPrice.map((room) => (
+                              <Option
+                                key={room.name + 1}
+                                optionName={room.name}
+                              />
                             ))}
                           </select>
                         </div>
@@ -335,8 +348,11 @@ const HeroFormLaptop = () => {
                           <select
                             id='bedrooms'
                             className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-3 pt-7 text-lg font-medium text-myBlue'>
-                            {totalMaxPrice.map((room) => (
-                              <Option key={room + 1} optionName={room} />
+                            {totalMaxPrice.totalMaximumPrice.map((room) => (
+                              <Option
+                                key={room.name + 1}
+                                optionName={room.name}
+                              />
                             ))}
                           </select>
                         </div>
@@ -345,7 +361,7 @@ const HeroFormLaptop = () => {
                   </div>
                 )}
                 {toRentButton && (
-                  <div className='absolute right-0 top-[105px] rounded bg-white'>
+                  <div className='absolute right-0 top-[105px] z-20 rounded bg-white'>
                     {displayPriceRange && (
                       <div className='grid w-[450px] grid-cols-2 gap-5 p-5'>
                         {/* PER MONTH/WEEK */}
@@ -374,9 +390,14 @@ const HeroFormLaptop = () => {
                               <select
                                 id='bedrooms'
                                 className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-3 pt-7 text-lg font-medium text-myBlue'>
-                                {minPricePerMonth.map((room) => (
-                                  <Option key={room + 1} optionName={room} />
-                                ))}
+                                {minPricePerMonth.totalMinimumPrice.map(
+                                  (room) => (
+                                    <Option
+                                      key={room.name + 1}
+                                      optionName={room.name}
+                                    />
+                                  )
+                                )}
                               </select>
                             </div>
                             {/* MAXIMUM PRICE */}
@@ -388,9 +409,14 @@ const HeroFormLaptop = () => {
                               <select
                                 id='bedrooms'
                                 className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-3 pt-7 text-lg font-medium text-myBlue'>
-                                {maxPricePerMonth.map((room) => (
-                                  <Option key={room + 1} optionName={room} />
-                                ))}
+                                {maxPricePerMonth.totalMaximumPrice.map(
+                                  (room) => (
+                                    <Option
+                                      key={room.name + 1}
+                                      optionName={room.name}
+                                    />
+                                  )
+                                )}
                               </select>
                             </div>
                           </div>
@@ -406,9 +432,14 @@ const HeroFormLaptop = () => {
                               <select
                                 id='bedrooms'
                                 className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-3 pt-7 text-lg font-medium text-myBlue'>
-                                {minPricePerWeek.map((room) => (
-                                  <Option key={room + 1} optionName={room} />
-                                ))}
+                                {minPricePerWeek.totalMinimumPrice.map(
+                                  (room) => (
+                                    <Option
+                                      key={room.name + 1}
+                                      optionName={room.name}
+                                    />
+                                  )
+                                )}
                               </select>
                             </div>
                             {/* MAXIMUM PRICE */}
@@ -420,9 +451,14 @@ const HeroFormLaptop = () => {
                               <select
                                 id='bedrooms'
                                 className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-3 pt-7 text-lg font-medium text-myBlue'>
-                                {maxPricePerWeek.map((room) => (
-                                  <Option key={room + 1} optionName={room} />
-                                ))}
+                                {maxPricePerWeek.totalMaximumPrice.map(
+                                  (room) => (
+                                    <Option
+                                      key={room.name + 1}
+                                      optionName={room.name}
+                                    />
+                                  )
+                                )}
                               </select>
                             </div>
                           </div>
@@ -494,8 +530,9 @@ const HeroFormLaptop = () => {
             </div>
           </form>
 
-          <div className='relative -z-10'>
-            <h1 className='absolute top-20 left-10 ml-2 text-left text-4xl font-semibold tracking-wide text-white'>
+          {/* Message Over Hero Photo */}
+          <div className='relative z-10'>
+            <h1 className='absolute top-32 left-10 ml-2 text-left text-4xl font-semibold tracking-wide text-white'>
               We know what a home is really worth
             </h1>
           </div>

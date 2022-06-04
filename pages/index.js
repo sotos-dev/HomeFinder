@@ -3,33 +3,30 @@ import HeroSection from "../components/homepageComps/heroSection"
 import Footer from "../layout/footer"
 import NavBar from "../layout/navbar"
 import { baseURL, fetchApi } from "../utils/fetchApi"
+import { featuredProperties } from "../utils/dummyData"
 
-const HomePage = (featuredProperties) => {
+const HomePage = () => {
   return (
     <>
-      {/* Navbar */}
-      <NavBar />
-      {/* Hero section */}
+      {/* Hero Section */}
       <HeroSection />
-      {/* Featured */}
+      {/* Featured Section */}
       <Featured featuredProperties={featuredProperties} />
-      {/* Footer */}
-      <Footer />
     </>
   )
 }
 
 export default HomePage
 
-// Fetch Data
-export async function getStaticProps() {
-  const featuredProperties = await fetchApi(
-    `${baseURL}/properties/list?area=London&page_size=3&include_featured_properties=3`
-  )
+// Fetch data to featured section - 3 featured properties
+// export async function getStaticProps() {
+//   const featuredProperties = await fetchApi(
+//     `${baseURL}/properties/list?area=London&page_size=3&include_featured_properties=3&listing_status=sale`
+//   )
 
-  return {
-    props: {
-      featuredProperties: featuredProperties,
-    },
-  }
-}
+//   return {
+//     props: {
+//       featuredProperties: featuredProperties,
+//     },
+//   }
+// }
