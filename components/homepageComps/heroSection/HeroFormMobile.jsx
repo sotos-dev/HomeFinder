@@ -9,8 +9,6 @@ import {
   propertyType,
 } from "../../../utils/homepageFormData"
 import Option from "./Option"
-import Radios from "./Radios"
-import TestComp from "./TestComp"
 import { fetchApi } from "../../../utils/fetchApi"
 
 const HeroFormMobile = () => {
@@ -57,7 +55,7 @@ const HeroFormMobile = () => {
 
   const submitSearch = (e) => {
     e.preventDefault()
-    const path = router.pathname
+
     const { query } = router
 
     const userInput = {}
@@ -91,13 +89,8 @@ const HeroFormMobile = () => {
     }
 
     for (const [key, value] of Object.entries(userInput)) {
-      // console.log(`the key is: ${key}`)
-      // console.log(`the value is: ${value}`)
       query[key] = value
     }
-    console.log(query)
-    console.log("submitted")
-
     router.push({ pathname: "/listings", query })
   }
 
@@ -168,7 +161,7 @@ const HeroFormMobile = () => {
                   value={bedroomsSelected}
                   onChange={(e) => setBedroomsSelected(e.target.value)}
                   className='h-16 w-full appearance-none rounded border border-myBlue border-opacity-30 bg-white pl-4 pt-6 text-lg'>
-                  {maxBedrooms.maxBeds.map((room) => (
+                  {maxBedrooms.map((room) => (
                     <Option
                       key={room.name + 1}
                       optionName={room.name}
@@ -188,7 +181,7 @@ const HeroFormMobile = () => {
                     value={salesMaxPriceSelected}
                     onChange={(e) => setSalesMaxPriceSelected(e.target.value)}
                     className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-4 pt-6 text-lg'>
-                    {totalMaxPrice.totalMaximumPrice.map((price) => {
+                    {totalMaxPrice.map((price) => {
                       return (
                         <Option
                           key={price.name + 1}
@@ -214,7 +207,7 @@ const HeroFormMobile = () => {
                         setRentMonthlyPriceSelected(e.target.value)
                       }
                       className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-4 pt-6 text-lg'>
-                      {maxPricePerMonth.totalMaximumPrice.map((price) => {
+                      {maxPricePerMonth.map((price) => {
                         return (
                           <Option
                             key={price.name + 1}
@@ -232,7 +225,7 @@ const HeroFormMobile = () => {
                         setRentWeeklyPriceSelected(e.target.value)
                       }
                       className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-4 pt-6 text-lg'>
-                      {maxPricePerWeek.totalMaximumPrice.map((price) => {
+                      {maxPricePerWeek.map((price) => {
                         return (
                           <Option
                             key={price.name + 1}
@@ -265,7 +258,7 @@ const HeroFormMobile = () => {
               <fieldset className='relative col-span-2 p-1 '>
                 <p>Property type</p>
                 <div className='mt-4 grid grid-cols-2 gap-y-6'>
-                  {propertyType.propertyTypes.map((property, index) => {
+                  {propertyType.map((property, index) => {
                     return (
                       <div
                         key={index + 1}
@@ -298,29 +291,9 @@ const HeroFormMobile = () => {
             </div>
           </form>
         </div>
-        <TestComp />
       </div>
     </>
   )
 }
 
 export default HeroFormMobile
-
-// export async function getServerSideProps({ userInput }) {
-//   const area = userInput.area || "London"
-//   const listing_status = userInput.listing_status || "sale"
-//   const maximum_beds = userInput.maximum_beds || "10"
-//   const maximum_price = userInput.maximum_price || "15000000"
-//   const property_type =
-//     userInput.property_type ||
-//     "flats,farmsland,terraced,semidetached,detached,bungalow,park_home,land"
-
-//   const data = await fetchApi(
-//     `${baseURL}/properties/list?area=${area}&listing_status=${listing_status}&maximum_beds=${maximum_beds}&maximum_price=${maximum_price}&property_type=${property_type}`
-//   )
-//   return {
-//     props: {
-//       searchResults: data
-//     }
-//   }
-// }

@@ -1,25 +1,47 @@
-import { useRouter } from "next/router"
-const router = useRouter()
-const { query } = router
+import Image from "next/image"
+import { fetchApi, baseURL } from "../utils/fetchApi"
 
-console.log("This is the query here" + query)
-const Listings = () => {
+const Listings = ({ searchResults: { listing } }) => {
+  console.log(listing)
   return (
     <>
-      <div>Listings</div>
+      {listing.map((property) => {
+        return (
+          <>
+            <h1>{property.title}</h1>
+            <p>{property.price}</p>
+            <p>{property.post_town}</p>
+            <p>{property.property_status}</p>
+            <Image
+              src={property.image_url}
+              alt='ssa'
+              width={400}
+              height={260}
+            />
+          </>
+        )
+      })}
     </>
   )
 }
 
 export default Listings
 
-// export async function getServerSideProps() {
-//     const featuredProperties = await fetchApi()
-//   // `${baseURL}/properties/list?area=London&page_size=3&include_featured_properties=3`
+export async function getServerSideProps({ query }) {
+  const area = query.area || "London"
+  const listing_status = query.listing_status || "sale"
+  const maximum_beds = query.maximum_beds || "10"
+  const maximum_price = query.maximum_price || "15000000"
+  const property_type =
+    query.property_type ||
+    "flats,farmsland,terraced,semidetached,detached,bungalow,park_home,land"
 
-//   return {
-//     props: {
-//       featuredProperties: featuredProperties,
-//     },
-//   }
-// }
+  const data = await fetchApi(
+    `${baseURL}/properties/list?area=${area}&listing_status=${listing_status}&maximum_beds=${maximum_beds}&maximum_price=${maximum_price}&property_type=${property_type}`
+  )
+  return {
+    props: {
+      searchResults: data,
+    },
+  }
+}
