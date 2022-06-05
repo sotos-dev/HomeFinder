@@ -19,12 +19,30 @@ import TheAllCheckbox from "./TheAllCheckbox"
 
 const HeroFormLaptop = () => {
   const router = useRouter()
-
+  // These Handle the Sales/Rent buttons as well as the Monthly/Weekly pricing on rentals
   const [forSaleButton, setForSaleButton] = useState(true)
   const [toRentButton, setToRentButton] = useState(false)
   const [selectValue, setSelectValue] = useState("month")
   const [monthly, setMonthly] = useState(true)
   const [weekly, setWeekly] = useState(false)
+
+  // USER  INPUT VALUES
+  const [searchAreaSelected, setSearchAreaSelected] = useState("")
+  const [minBedroomsSelected, setMinBedroomsSelected] = useState("")
+  const [maxBedroomsSelected, setMaxBedroomsSelected] = useState("")
+  const [salesMinPriceSelected, setSalesMinPriceSelected] = useState("")
+  const [salesMaxPriceSelected, setSalesMaxPriceSelected] = useState("")
+  const [minRentMonthlyPriceSelected, setMinRentMonthlyPriceSelected] =
+    useState("")
+  const [maxRentMonthlyPriceSelected, setMaxRentMonthlyPriceSelected] =
+    useState("")
+  const [minRentWeeklyPriceSelected, setMinRentWeeklyPriceSelected] =
+    useState("")
+  const [maxRentWeeklyPriceSelected, setMaxRentWeeklyPriceSelected] =
+    useState("")
+  const [propertyTypeSelected, setPropertyTypeSelected] = useState(
+    "flats,farmsland,terraced,semidetached,detached,bungalow,park_home,land"
+  )
 
   // FILTER DROPDOWNS ON/OFF
   const [displayBedrooms, setDisplayBedrooms] = useState(false)
@@ -103,9 +121,10 @@ const HeroFormLaptop = () => {
     }
   }
   // RUNS WHEN CLICKING ON A REGULAR CHECKBOX ONLY
-  const handleCheckboxes = (id) => {
+  const handleCheckboxes = (e, id) => {
     // IF 'SHOW-ALL' CHECKBOX IS SELECTED
     if (allCheckboxState.selected === true) {
+      setPropertyTypeSelected([e.target.value])
       //------------------------------------------------------------
       // Uncheck the 'Show all' checkbox - Unselect it
       setAllCheckboxState({ ...allCheckboxState, selected: false })
@@ -126,8 +145,12 @@ const HeroFormLaptop = () => {
       const validNames = updatedCheckboxes.filter(
         (item) => item.selected === true
       )
-      const displayNames = validNames.map((item) => item.name)
+      const displayNames = validNames.map((item) => item.value)
       setPropertyNameTypes(displayNames)
+      //------------------------------------------------------------
+      // Get values for filtering
+      const activeValues = validNames.map((item) => item.value)
+      setPropertyTypeSelected(activeValues.join())
       //------------------------------------------------------------
     }
     // IF 'SHOW-ALL' CHECKBOX IS NOT SELECTED
@@ -149,9 +172,12 @@ const HeroFormLaptop = () => {
       const validNames = updatedCheckboxes.filter(
         (item) => item.selected === true
       )
-      const displayNames = validNames.map((item) => item.name)
+      const displayNames = validNames.map((item) => item.value)
       setPropertyNameTypes(displayNames)
       //------------------------------------------------------------
+      // Get values for filtering
+      const activeValues = validNames.map((item) => item.value)
+      setPropertyTypeSelected(activeValues.join())
       //------------------------------------------------------------
       // Check if all checkboxes/options are off
       const selectTheAllCkeckbox = updatedCheckboxes.every(
@@ -175,8 +201,51 @@ const HeroFormLaptop = () => {
 
   const submitSearch = (e) => {
     e.preventDefault()
-    console.log("submitted")
-    router.push("/listings")
+
+    const { query } = router
+
+    const userInput = {}
+
+    if (forSaleButton) {
+      userInput = {
+        listing_status: "sale",
+        area: searchAreaSelected,
+        minimum_beds: minBedroomsSelected,
+        maximum_beds: maxBedroomsSelected,
+        minimum_price: salesMinPriceSelected,
+        maximum_price: salesMaxPriceSelected,
+        property_type: propertyTypeSelected,
+      }
+    } else if (toRentButton) {
+      if (monthly) {
+        userInput = {
+          listing_status: "rent",
+          area: searchAreaSelected,
+          minimum_beds: minBedroomsSelected,
+          maximum_beds: maxBedroomsSelected,
+          minimum_price: minRentMonthlyPriceSelected,
+          maximum_price: maxRentMonthlyPriceSelected,
+          property_type: propertyTypeSelected,
+        }
+      } else if (weekly) {
+        userInput = {
+          listing_status: "rent",
+          area: searchAreaSelected,
+          minimum_beds: minBedroomsSelected,
+          maximum_beds: maxBedroomsSelected,
+          minimum_price: minRentWeeklyPriceSelected,
+          maximum_price: maxRentWeeklyPriceSelected,
+          property_type: propertyTypeSelected,
+        }
+      }
+    }
+
+    for (const [key, value] of Object.entries(userInput)) {
+      query[key] = value
+    }
+
+    // console.log(query)
+    router.push({ pathname: "/listings", query })
   }
 
   return (
@@ -229,6 +298,8 @@ const HeroFormLaptop = () => {
                     Search area
                   </p>
                   <input
+                    value={searchAreaSelected}
+                    onChange={(e) => setSearchAreaSelected(e.target.value)}
                     type='text'
                     placeholder='eg. Oxford or NW3'
                     autoComplete='off'
@@ -267,6 +338,10 @@ const HeroFormLaptop = () => {
                         </p>
                         <MdKeyboardArrowDown className='pointer-events-none absolute top-7 right-3 text-3xl' />
                         <select
+                          value={minBedroomsSelected}
+                          onChange={(e) =>
+                            setMinBedroomsSelected(e.target.value)
+                          }
                           id='bedrooms'
                           className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-3 pt-7 text-lg font-medium text-myBlue'>
                           {minBedrooms.map((room) => (
@@ -284,6 +359,10 @@ const HeroFormLaptop = () => {
                         </p>
                         <MdKeyboardArrowDown className='pointer-events-none absolute top-7 right-3 text-3xl' />
                         <select
+                          value={maxBedroomsSelected}
+                          onChange={(e) =>
+                            setMaxBedroomsSelected(e.target.value)
+                          }
                           id='bedrooms'
                           className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-3 pt-7 text-lg font-medium text-myBlue'>
                           {maxBedrooms.map((room) => (
@@ -318,6 +397,7 @@ const HeroFormLaptop = () => {
                   </div>
                 </div>
                 {/* PRICE RANGE DROPDOWN DIV */}
+                {/* SALES PRICE RANGE */}
                 {forSaleButton && (
                   <div className='absolute right-0 top-[105px] z-20 rounded bg-white'>
                     {displayPriceRange && (
@@ -329,12 +409,17 @@ const HeroFormLaptop = () => {
                           </p>
                           <MdKeyboardArrowDown className='pointer-events-none absolute top-7 right-3 text-3xl' />
                           <select
+                            value={salesMinPriceSelected}
+                            onChange={(e) =>
+                              setSalesMinPriceSelected(e.target.value)
+                            }
                             id='bedrooms'
                             className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-3 pt-7 text-lg font-medium text-myBlue'>
                             {totalMinPrice.map((room) => (
                               <Option
                                 key={room.name + 1}
                                 optionName={room.name}
+                                optionValue={room.value}
                               />
                             ))}
                           </select>
@@ -346,12 +431,17 @@ const HeroFormLaptop = () => {
                           </p>
                           <MdKeyboardArrowDown className='pointer-events-none absolute top-7 right-3 text-3xl' />
                           <select
+                            value={salesMaxPriceSelected}
+                            onChange={(e) =>
+                              setSalesMaxPriceSelected(e.target.value)
+                            }
                             id='bedrooms'
                             className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-3 pt-7 text-lg font-medium text-myBlue'>
                             {totalMaxPrice.map((room) => (
                               <Option
                                 key={room.name + 1}
                                 optionName={room.name}
+                                optionValue={room.value}
                               />
                             ))}
                           </select>
@@ -360,6 +450,7 @@ const HeroFormLaptop = () => {
                     )}
                   </div>
                 )}
+                {/* RENTALS PRICE RANGE */}
                 {toRentButton && (
                   <div className='absolute right-0 top-[105px] z-20 rounded bg-white'>
                     {displayPriceRange && (
@@ -388,12 +479,17 @@ const HeroFormLaptop = () => {
                               </p>
                               <MdKeyboardArrowDown className='pointer-events-none absolute top-7 right-3 text-3xl' />
                               <select
+                                value={minRentMonthlyPriceSelected}
+                                onChange={(e) =>
+                                  setMinRentMonthlyPriceSelected(e.target.value)
+                                }
                                 id='bedrooms'
                                 className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-3 pt-7 text-lg font-medium text-myBlue'>
                                 {minPricePerMonth.map((room) => (
                                   <Option
                                     key={room.name + 1}
                                     optionName={room.name}
+                                    optionValue={room.value}
                                   />
                                 ))}
                               </select>
@@ -405,12 +501,17 @@ const HeroFormLaptop = () => {
                               </p>
                               <MdKeyboardArrowDown className='pointer-events-none absolute top-7 right-3 text-3xl' />
                               <select
+                                value={maxRentMonthlyPriceSelected}
+                                onChange={(e) =>
+                                  setMaxRentMonthlyPriceSelected(e.target.value)
+                                }
                                 id='bedrooms'
                                 className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-3 pt-7 text-lg font-medium text-myBlue'>
                                 {maxPricePerMonth.map((room) => (
                                   <Option
                                     key={room.name + 1}
                                     optionName={room.name}
+                                    optionValue={room.value}
                                   />
                                 ))}
                               </select>
@@ -426,12 +527,17 @@ const HeroFormLaptop = () => {
                               </p>
                               <MdKeyboardArrowDown className='pointer-events-none absolute top-7 right-3 text-3xl' />
                               <select
+                                value={minRentWeeklyPriceSelected}
+                                onChange={(e) =>
+                                  setMinRentWeeklyPriceSelected(e.target.value)
+                                }
                                 id='bedrooms'
                                 className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-3 pt-7 text-lg font-medium text-myBlue'>
                                 {minPricePerWeek.map((room) => (
                                   <Option
                                     key={room.name + 1}
                                     optionName={room.name}
+                                    optionValue={room.value}
                                   />
                                 ))}
                               </select>
@@ -443,12 +549,17 @@ const HeroFormLaptop = () => {
                               </p>
                               <MdKeyboardArrowDown className='pointer-events-none absolute top-7 right-3 text-3xl' />
                               <select
+                                value={maxRentWeeklyPriceSelected}
+                                onChange={(e) =>
+                                  setMaxRentWeeklyPriceSelected(e.target.value)
+                                }
                                 id='bedrooms'
                                 className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-3 pt-7 text-lg font-medium text-myBlue'>
                                 {maxPricePerWeek.map((room) => (
                                   <Option
                                     key={room.name + 1}
                                     optionName={room.name}
+                                    optionValue={room.value}
                                   />
                                 ))}
                               </select>
@@ -488,7 +599,7 @@ const HeroFormLaptop = () => {
                   </div>
                 </div>
                 {/* PROPERTY TYPES DROPDOWN DIV */}
-                <div className='absolute left-0 top-[105px] rounded bg-white '>
+                <div className='absolute left-0 top-[105px] z-20 rounded bg-white '>
                   {displayPropertyTypes && (
                     <>
                       <div className='mr-10 grid w-[350px] grid-cols-2 gap-4 truncate p-4'>
@@ -498,13 +609,33 @@ const HeroFormLaptop = () => {
                         />
                         {checkboxesState.map((checkbox, index) => {
                           return (
-                            <Checkbox
-                              key={index + checkbox.name}
-                              handleCheckboxes={handleCheckboxes}
-                              name={checkbox.name}
-                              id={checkbox.id}
-                              selected={checkbox.selected}
-                            />
+                            <div
+                              key={checkbox.id}
+                              className='flex items-center justify-start gap-3'>
+                              <input
+                                className='rounded p-4 text-myBlue focus:ring-myBlue'
+                                onChange={(e) =>
+                                  handleCheckboxes(e, checkbox.id)
+                                }
+                                type='checkbox'
+                                name={checkbox.name}
+                                checked={checkbox.selected}
+                                value={checkbox.value}
+                                id={checkbox.id}
+                              />
+                              <label className='text-lg' htmlFor={checkbox.id}>
+                                {checkbox.name}
+                              </label>
+                            </div>
+                            // <Checkbox
+                            //   key={index + checkbox.name}
+                            //   handleCheckboxes={(e) => handleCheckboxes(e, id)}
+                            //   name={checkbox.name}
+                            //   id={checkbox.id}
+                            //   value={checkbox.value}
+                            //   selected={checkbox.selected}
+                            //   checked={isCheckboxSelected}
+                            // />
                           )
                         })}
                       </div>

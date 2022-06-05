@@ -1,7 +1,5 @@
 import Featured from "../components/homepageComps/featuredSection"
 import HeroSection from "../components/homepageComps/heroSection"
-import Footer from "../layout/footer"
-import NavBar from "../layout/navbar"
 import { baseURL, fetchApi } from "../utils/fetchApi"
 import { featuredProperties } from "../utils/dummyData"
 

@@ -70,16 +70,16 @@ const HeroFormMobile = () => {
       }
     } else if (toRentButton) {
       if (monthly) {
-        const userInput = {
-          listing_status: rent,
+        userInput = {
+          listing_status: "rent",
           area: searchAreaSelected,
           maximum_beds: bedroomsSelected,
           maximum_price: rentMonthlyPriceSelected,
           property_type: propertyTypeSelected,
         }
       } else if (weekly) {
-        const userInput = {
-          listing_status: rent,
+        userInput = {
+          listing_status: "rent",
           area: searchAreaSelected,
           maximum_beds: bedroomsSelected,
           maximum_price: rentWeeklyPriceSelected,
@@ -87,6 +87,8 @@ const HeroFormMobile = () => {
         }
       }
     }
+
+    // console.log(userInput)
 
     for (const [key, value] of Object.entries(userInput)) {
       query[key] = value

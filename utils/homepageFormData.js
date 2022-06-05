@@ -5,39 +5,39 @@ export const minBedrooms = [
     value: "",
   },
   {
-    name: "1+",
+    name: "1",
     value: "1",
   },
   {
-    name: "2+",
+    name: "2",
     value: "2",
   },
   {
-    name: "3+",
+    name: "3",
     value: "3",
   },
   {
-    name: "4+",
+    name: "4",
     value: "4",
   },
   {
-    name: "5+",
+    name: "5",
     value: "5",
   },
   {
-    name: "6+",
+    name: "6",
     value: "6",
   },
   {
-    name: "7+",
+    name: "7",
     value: "7",
   },
   {
-    name: "8+",
+    name: "8",
     value: "8",
   },
   {
-    name: "9+",
+    name: "9",
     value: "9",
   },
   {
@@ -51,39 +51,39 @@ export const maxBedrooms = [
     value: "",
   },
   {
-    name: "1+",
+    name: "1",
     value: "1",
   },
   {
-    name: "2+",
+    name: "2",
     value: "2",
   },
   {
-    name: "3+",
+    name: "3",
     value: "3",
   },
   {
-    name: "4+",
+    name: "4",
     value: "4",
   },
   {
-    name: "5+",
+    name: "5",
     value: "5",
   },
   {
-    name: "6+",
+    name: "6",
     value: "6",
   },
   {
-    name: "7+",
+    name: "7",
     value: "7",
   },
   {
-    name: "8+",
+    name: "8",
     value: "8",
   },
   {
-    name: "9+",
+    name: "9",
     value: "9",
   },
   {
@@ -1505,43 +1505,50 @@ export const theAllCheckboxInfo = {
 // Laptop and Up Property Types
 export const checkboxesInfo = [
   {
-    name: "semi-detached",
+    name: "Semi-detached",
+    value: "semidetached",
     id: "semi-detached",
     selected: false,
     valid: true,
   },
   {
-    name: "flats",
+    name: "Flats",
+    value: "flats",
     id: "flats",
     selected: false,
     valid: true,
   },
   {
-    name: "farms/land",
+    name: "Farms/land",
+    value: "farmsland",
     id: "farms/land",
     selected: false,
     valid: true,
   },
   {
-    name: "detached",
+    name: "Detached",
+    value: "detached",
     id: "detached",
     selected: false,
     valid: true,
   },
   {
-    name: "terraced",
+    name: "Terraced",
+    value: "terraced",
     id: "terraced",
     selected: false,
     valid: true,
   },
   {
-    name: "bungalows",
+    name: "Bungalows",
+    value: "bungalow",
     id: "bungalows",
     selected: false,
     valid: true,
   },
   {
-    name: "park-homes",
+    name: "Park homes",
+    value: "park_home",
     id: "park-homes",
     selected: false,
     valid: true,
