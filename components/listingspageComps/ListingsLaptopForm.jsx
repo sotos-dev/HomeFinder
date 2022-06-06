@@ -13,7 +13,7 @@ import {
   maxPricePerWeek,
   checkboxesInfo,
   theAllCheckboxInfo,
-} from "../../utils/homepageFormData"
+} from "../../utils/homePageData"
 import Option from "../homepageComps/heroSection/Option"
 import Checkbox from "../homepageComps/heroSection/Checkbox"
 import TheAllCheckbox from "../homepageComps/heroSection/TheAllCheckbox"

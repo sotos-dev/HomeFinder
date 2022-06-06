@@ -7,9 +7,8 @@ import {
   maxPricePerMonth,
   maxPricePerWeek,
   propertyType,
-} from "../../../utils/homepageFormData"
+} from "../../../utils/homePageData"
 import Option from "./Option"
-import { fetchApi } from "../../../utils/fetchApi"
 
 const HeroFormMobile = () => {
   const router = useRouter()
@@ -87,8 +86,6 @@ const HeroFormMobile = () => {
         }
       }
     }
-
-    // console.log(userInput)
 
     for (const [key, value] of Object.entries(userInput)) {
       query[key] = value

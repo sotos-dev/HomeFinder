@@ -9,7 +9,7 @@ import {
   maxPricePerMonth,
   maxPricePerWeek,
   propertyType,
-} from "../../utils/homepageFormData"
+} from "../../utils/homePageData"
 import Option from "../homepageComps/heroSection/Option"
 
 const ListingsMobileForm = ({ numOfProperties }) => {
@@ -144,25 +144,6 @@ const ListingsMobileForm = ({ numOfProperties }) => {
         <div className='mx-auto flex h-screen w-full items-start justify-center overflow-y-scroll bg-neutral-50 py-6 px-7 shadow-lg sm:items-center'>
           {/* Mobile Form */}
           <form onSubmit={submitSearch} className='mt-5'>
-            {/* Sort dropdown */}
-            <div className='relative mt-10 items-center justify-between sm:flex'>
-              <div className='lg:hidden'>
-                <h2 className='text-xl'>{numOfProperties.length} results</h2>
-              </div>
-              <select
-                ref={sorterRef}
-                onChange={submitSearch}
-                className='mb-5 h-16 w-full pl-5 text-lg sm:w-64'>
-                {sorter.map((item) => {
-                  return (
-                    <option key={item.name} value={item.value}>
-                      {item.name}
-                    </option>
-                  )
-                })}
-              </select>
-              <MdKeyboardArrowDown className='pointer-events-none absolute bottom-9 right-4 text-3xl' />
-            </div>
             <div className='grid grid-cols-2 gap-4'>
               {/* For Sale/Rent Buttons */}
               <button
@@ -337,6 +318,25 @@ const ListingsMobileForm = ({ numOfProperties }) => {
                   })}
                 </div>
               </fieldset>
+              {/* Sort dropdown */}
+              <div className='relative col-span-2 mt-3 flex items-center justify-between sm:mt-7 lg:hidden'>
+                <div className='mb-3'>
+                  <h2 className='text-xl'>{numOfProperties.length} results</h2>
+                </div>
+                <select
+                  ref={sorterRef}
+                  onChange={submitSearch}
+                  className='mb-5 h-16 w-1/2 pl-3 text-lg sm:w-64'>
+                  {sorter.map((item) => {
+                    return (
+                      <option key={item.name} value={item.value}>
+                        {item.name}
+                      </option>
+                    )
+                  })}
+                </select>
+                <MdKeyboardArrowDown className='pointer-events-none absolute bottom-9 right-4 text-3xl' />
+              </div>
               {/* Search Button */}
               <button
                 type='submit'

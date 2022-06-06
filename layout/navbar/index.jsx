@@ -6,13 +6,31 @@ import { FcMenu } from "react-icons/fc"
 import Divider from "../../ui/divider"
 import Navlinks from "./NavLinks"
 import Logo from "./NavLogo"
-import { useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import Container from "../../ui/container"
 
 const NavBar = () => {
-  const [menuState, setMenuState] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const mobileButtonRef = useRef()
+  const mobileNavAreaRef = useRef()
+
+  useEffect(() => {
+    const closeMenu = (e) => {
+      if (
+        e.target !== mobileButtonRef.current &&
+        e.target !== mobileNavAreaRef.current
+      ) {
+        setIsMenuOpen(false)
+      }
+    }
+
+    document.body.addEventListener("click", closeMenu)
+
+    return () => document.body.removeEventListener("click", closeMenu)
+  }, [])
+
   const toggleMenu = () => {
-    setMenuState((prevMenuState) => (prevMenuState = !prevMenuState))
+    setIsMenuOpen((prevMenuState) => (prevMenuState = !prevMenuState))
   }
 
   return (
@@ -25,8 +43,12 @@ const NavBar = () => {
               <Logo />
             </div>
             {/* Sandwich Button */}
-            <button className='mr-5 md:hidden' onClick={toggleMenu}>
-              <FcMenu size={35} />
+            <button
+              ref={mobileButtonRef}
+              className='mr-5 md:hidden'
+              onClick={toggleMenu}
+              value='asd'>
+              <FcMenu size={35} className='pointer-events-none' />
             </button>
             {/* Tablet&Up-NavMenu */}
             <nav className='hidden md:block'>
@@ -60,9 +82,10 @@ const NavBar = () => {
             </nav>
             {/* Mobile-NavMenu */}
             <nav
+              ref={mobileNavAreaRef}
               className={`${
-                menuState ? "translate-x-0" : "-translate-x-full"
-              } fixed top-0 z-20 h-screen w-3/4 rounded-tr-lg rounded-br-lg bg-gray-50 shadow-xl transition-transform duration-500 md:hidden`}>
+                isMenuOpen ? "translate-x-0" : "-translate-x-full"
+              } fixed top-0 z-20 -ml-5 h-screen w-3/4 rounded-tr-lg rounded-br-lg bg-gray-50 shadow-xl transition-transform duration-500 md:hidden`}>
               <ul className='flex flex-col'>
                 <div className='ml-5 mt-6 mb-3 w-24 md:w-36 lg:w-44'>
                   <Logo />

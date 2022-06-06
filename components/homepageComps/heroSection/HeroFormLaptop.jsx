@@ -12,7 +12,7 @@ import {
   maxPricePerWeek,
   checkboxesInfo,
   theAllCheckboxInfo,
-} from "../../../utils/homepageFormData"
+} from "../../../utils/homePageData"
 import Option from "./Option"
 import Checkbox from "./Checkbox"
 import TheAllCheckbox from "./TheAllCheckbox"
@@ -250,7 +250,7 @@ const HeroFormLaptop = () => {
 
   return (
     <>
-      <div className='mx-left z-20 hidden max-w-[1600px] lg:block'>
+      <div className='mx-left z-20 hidden max-w-[1700px] lg:block'>
         <div className='sm:mx-5'>
           {/* --------------------------- */}
           {/* MESSAGE */}
