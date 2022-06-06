@@ -1,6 +1,7 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { useRouter } from "next/router"
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md"
+import { sorter } from "../../utils/listingsPageData"
 import {
   minBedrooms,
   maxBedrooms,
@@ -12,12 +13,13 @@ import {
   maxPricePerWeek,
   checkboxesInfo,
   theAllCheckboxInfo,
-} from "../../../utils/homepageFormData"
-import Option from "./Option"
-import Checkbox from "./Checkbox"
-import TheAllCheckbox from "./TheAllCheckbox"
+} from "../../utils/homepageFormData"
+import Option from "../homepageComps/heroSection/Option"
+import Checkbox from "../homepageComps/heroSection/Checkbox"
+import TheAllCheckbox from "../homepageComps/heroSection/TheAllCheckbox"
+import Container from "../../ui/container"
 
-const HeroFormLaptop = () => {
+const HeroFormLaptop = ({ numOfProperties }) => {
   const router = useRouter()
   // These Handle the Sales/Rent buttons as well as the Monthly/Weekly pricing on rentals
   const [forSaleButton, setForSaleButton] = useState(true)
@@ -43,6 +45,9 @@ const HeroFormLaptop = () => {
   const [propertyTypeSelected, setPropertyTypeSelected] = useState(
     "flats,farmsland,terraced,semidetached,detached,bungalow,park_home,land"
   )
+  // const [sortBy, setSortBy] = useState("age")
+  // const [ordering, setOrdering] = useState("ascending")
+  const sorterRef = useRef()
 
   // FILTER DROPDOWNS ON/OFF
   const [displayBedrooms, setDisplayBedrooms] = useState(false)
@@ -199,8 +204,33 @@ const HeroFormLaptop = () => {
     }
   }
 
+  // Submit Search
   const submitSearch = (e) => {
     e.preventDefault()
+
+    setDisplayBedrooms(false)
+    setDisplayPriceRange(false)
+    setDisplayPropertyTypes(false)
+
+    const sortOption =
+      sorterRef.current.options[sorterRef.current.selectedIndex].text
+
+    let ordering = ""
+    let sortBy = ""
+
+    if (sortOption === "Highest price") {
+      sortBy = "price"
+      ordering = "descending"
+    } else if (sortOption === "Lowest price") {
+      sortBy = "price"
+      ordering = "ascending"
+    } else if (sortOption === "Most recent") {
+      sortBy = "age"
+      ordering = "descending"
+    } else if (sortOption === "Oldest first") {
+      sortBy = "age"
+      ordering = "ascending"
+    }
 
     const { query } = router
 
@@ -215,6 +245,8 @@ const HeroFormLaptop = () => {
         minimum_price: salesMinPriceSelected,
         maximum_price: salesMaxPriceSelected,
         property_type: propertyTypeSelected,
+        order_by: sortBy,
+        ordering: ordering,
       }
     } else if (toRentButton) {
       if (monthly) {
@@ -226,6 +258,8 @@ const HeroFormLaptop = () => {
           minimum_price: minRentMonthlyPriceSelected,
           maximum_price: maxRentMonthlyPriceSelected,
           property_type: propertyTypeSelected,
+          order_by: sortBy,
+          ordering: ordering,
         }
       } else if (weekly) {
         userInput = {
@@ -236,6 +270,8 @@ const HeroFormLaptop = () => {
           minimum_price: minRentWeeklyPriceSelected,
           maximum_price: maxRentWeeklyPriceSelected,
           property_type: propertyTypeSelected,
+          order_by: sortBy,
+          ordering: ordering,
         }
       }
     }
@@ -244,17 +280,16 @@ const HeroFormLaptop = () => {
       query[key] = value
     }
 
-    // console.log(query)
     router.push({ pathname: "/listings", query })
   }
 
   return (
     <>
-      <div className='mx-left z-20 hidden max-w-[1600px] lg:block'>
-        <div className='sm:mx-5'>
+      <Container>
+        <div className='mt-10 hidden lg:block'>
           {/* --------------------------- */}
           {/* MESSAGE */}
-          <p className='my-3 ml-8 text-left text-lg font-medium text-myBlue lg:text-xl'>
+          <p className='my-3 text-left text-lg font-medium text-myBlue lg:text-xl'>
             Search properties for sale or rent in the{" "}
             <span className='font-medium'>UK</span>
           </p>
@@ -263,7 +298,7 @@ const HeroFormLaptop = () => {
           <form onSubmit={submitSearch}>
             {/* --------------------------- */}
             {/* BUTTONS */}
-            <div className='ml-8 flex items-center justify-start gap-2'>
+            <div className='flex items-center justify-start gap-2'>
               <button
                 onClick={saleButton}
                 type='button'
@@ -287,7 +322,7 @@ const HeroFormLaptop = () => {
             </div>
             {/* --------------------------- */}
             {/* FORM AREA - GRID */}
-            <div className='relative mx-8 -mb-16 mt-4 grid h-[98px] grid-cols-5 items-center justify-start rounded border border-black/30 bg-white'>
+            <div className='relative mt-4 grid h-[98px] grid-cols-5 items-center justify-start rounded border border-black/30 bg-white'>
               {/* --------------------------- */}
               {/* SEARCH ADDRESS */}
               <div
@@ -652,15 +687,27 @@ const HeroFormLaptop = () => {
               </div>
             </div>
           </form>
-
-          {/* Message Over Hero Photo */}
-          <div className='relative z-10'>
-            <h1 className='absolute top-32 left-10 ml-2 text-left text-4xl font-semibold tracking-wide text-white'>
-              We know what a home is really worth
-            </h1>
+          {/* Sort dropdown */}
+          <div className='relative mt-10 items-center justify-between sm:flex'>
+            <div className='hidden sm:block'>
+              <h2 className='text-xl'>{numOfProperties.length} results</h2>
+            </div>
+            <select
+              ref={sorterRef}
+              onChange={submitSearch}
+              className='mb-5 h-16 w-full pl-5 text-lg sm:w-64'>
+              {sorter.map((item) => {
+                return (
+                  <option key={item.name} value={item.value}>
+                    {item.name}
+                  </option>
+                )
+              })}
+            </select>
+            <MdKeyboardArrowDown className='pointer-events-none absolute bottom-9 right-4 text-3xl' />
           </div>
         </div>
-      </div>
+      </Container>
     </>
   )
 }

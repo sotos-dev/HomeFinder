@@ -5,6 +5,8 @@ import { TbSofa } from "react-icons/tb"
 import { BiBath } from "react-icons/bi"
 
 const Cards = ({ listing }) => {
+  // const changedDateFormat = listing.listing_date.slice(0, 10)
+
   return (
     <>
       <div className='rounded bg-stone-100 shadow-md shadow-stone-200'>
@@ -53,12 +55,10 @@ const Cards = ({ listing }) => {
           </h2>
           {/* Property Address */}
           <p className='font-medium opacity-50'>
-            Gubyon Avenue, Herne Hill SE24
+            {listing.displayable_address}
           </p>
           {/* Listing Date */}
-          <p className='mt-3 opacity-50'>
-            Listed on {listing.first_published_date}
-          </p>
+          <p className='mt-3 opacity-50'>Listed on </p>
           <button className='mt-5 rounded-md bg-myBlue py-2 px-8 text-lg font-medium text-white lg:py-3'>
             See property
           </button>

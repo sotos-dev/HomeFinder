@@ -1,7 +1,8 @@
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { useRouter } from "next/router"
 import { MdKeyboardArrowDown } from "react-icons/md"
 import { BsFilter } from "react-icons/bs"
+import { sorter } from "../../utils/listingsPageData"
 import {
   maxBedrooms,
   totalMaxPrice,
@@ -10,12 +11,13 @@ import {
   propertyType,
 } from "../../utils/homepageFormData"
 import Option from "../homepageComps/heroSection/Option"
-import { fetchApi } from "../../utils/fetchApi"
 
-const ListingsMobileForm = () => {
+const ListingsMobileForm = ({ numOfProperties }) => {
   const router = useRouter()
+  const sorterRef = useRef()
 
-  const [showMobileFilters, setShowMobileFilters] = useState(true)
+  // Toggle Mobile Filters
+  const [showMobileFilters, setShowMobileFilters] = useState(false)
 
   // These Handle the Sales/Rent buttons as well as the Monthly/Weekly pricing on rentals
   const [forSaleButton, setForSaleButton] = useState(true)
@@ -63,6 +65,26 @@ const ListingsMobileForm = () => {
 
     const userInput = {}
 
+    const sortOption =
+      sorterRef.current.options[sorterRef.current.selectedIndex].text
+
+    let ordering = ""
+    let sortBy = ""
+
+    if (sortOption === "Highest price") {
+      sortBy = "price"
+      ordering = "descending"
+    } else if (sortOption === "Lowest price") {
+      sortBy = "price"
+      ordering = "ascending"
+    } else if (sortOption === "Most recent") {
+      sortBy = "age"
+      ordering = "descending"
+    } else if (sortOption === "Oldest first") {
+      sortBy = "age"
+      ordering = "ascending"
+    }
+
     if (forSaleButton) {
       userInput = {
         listing_status: "sale",
@@ -70,6 +92,8 @@ const ListingsMobileForm = () => {
         maximum_beds: bedroomsSelected,
         maximum_price: salesMaxPriceSelected,
         property_type: propertyTypeSelected,
+        order_by: sortBy,
+        ordering: ordering,
       }
     } else if (toRentButton) {
       if (monthly) {
@@ -79,6 +103,8 @@ const ListingsMobileForm = () => {
           maximum_beds: bedroomsSelected,
           maximum_price: rentMonthlyPriceSelected,
           property_type: propertyTypeSelected,
+          order_by: sortBy,
+          ordering: ordering,
         }
       } else if (weekly) {
         userInput = {
@@ -87,34 +113,56 @@ const ListingsMobileForm = () => {
           maximum_beds: bedroomsSelected,
           maximum_price: rentWeeklyPriceSelected,
           property_type: propertyTypeSelected,
+          order_by: sortBy,
+          ordering: ordering,
         }
       }
-    }
-
-    // console.log(userInput)
+    } // console.log(userInput)
 
     for (const [key, value] of Object.entries(userInput)) {
       query[key] = value
     }
+
+    setShowMobileFilters(false)
     router.push({ pathname: "/listings", query })
   }
 
   return (
     <>
+      {/* Toggle button - Mobile Filters */}
       <div className='relative '>
         <div
           onClick={() => setShowMobileFilters((prev) => (prev = !prev))}
-          className='fixed bottom-7 right-7 z-20 flex h-20 w-20 items-center justify-center rounded-full bg-stone-200'>
-          <BsFilter size={50} className='mt-2' />
+          className='fixed bottom-7 right-7 z-20 flex h-16 w-16 items-center justify-center rounded-full bg-myBlue lg:hidden'>
+          <BsFilter size={40} className='mt-2 text-white' />
         </div>
       </div>
       <div
         className={`${
           showMobileFilters ? " z-10 translate-y-0" : " translate-y-full"
-        } fixed top-0 left-0 right-0 bottom-0  transition-all duration-500 md:px-14 lg:hidden`}>
-        <div className='mx-auto flex h-screen w-full items-start justify-center overflow-y-scroll bg-neutral-50 py-6 px-7 shadow-lg'>
+        } fixed top-0 left-0 right-0 bottom-0  transition-all duration-500 lg:hidden`}>
+        <div className='mx-auto flex h-screen w-full items-start justify-center overflow-y-scroll bg-neutral-50 py-6 px-7 shadow-lg sm:items-center'>
           {/* Mobile Form */}
           <form onSubmit={submitSearch} className='mt-5'>
+            {/* Sort dropdown */}
+            <div className='relative mt-10 items-center justify-between sm:flex'>
+              <div className='lg:hidden'>
+                <h2 className='text-xl'>{numOfProperties.length} results</h2>
+              </div>
+              <select
+                ref={sorterRef}
+                onChange={submitSearch}
+                className='mb-5 h-16 w-full pl-5 text-lg sm:w-64'>
+                {sorter.map((item) => {
+                  return (
+                    <option key={item.name} value={item.value}>
+                      {item.name}
+                    </option>
+                  )
+                })}
+              </select>
+              <MdKeyboardArrowDown className='pointer-events-none absolute bottom-9 right-4 text-3xl' />
+            </div>
             <div className='grid grid-cols-2 gap-4'>
               {/* For Sale/Rent Buttons */}
               <button
@@ -124,7 +172,7 @@ const ListingsMobileForm = () => {
                   forSaleButton
                     ? "bg-myBlue text-white"
                     : "bg-gray-200 text-black"
-                } rounded-md py-5 text-lg`}>
+                } rounded-md py-5 text-lg sm:py-7 sm:px-20 sm:text-2xl`}>
                 For sale
               </button>
               <button
@@ -134,12 +182,12 @@ const ListingsMobileForm = () => {
                   toRentButton
                     ? "bg-myBlue text-white"
                     : "bg-gray-200 text-black"
-                } rounded-md py-5 text-lg`}>
+                } rounded-md py-5 text-lg sm:py-7 sm:px-20 sm:text-2xl`}>
                 To rent
               </button>
               {/* Search Area Input */}
-              <fieldset className='relative col-span-2 mt-3'>
-                <p className='absolute top-3 left-4 text-sm text-myBlue'>
+              <fieldset className='relative col-span-2 mt-3 sm:mt-7'>
+                <p className='absolute top-3 left-4 text-sm text-myBlue sm:text-base'>
                   Search area
                 </p>
                 <input
@@ -149,7 +197,7 @@ const ListingsMobileForm = () => {
                   placeholder='eg. Oxford or NW3'
                   autoComplete='off'
                   id='search-area'
-                  className='h-20 w-full rounded-md border border-myBlue border-opacity-30 bg-white pl-4 pt-8 text-lg'
+                  className='h-20 w-full rounded-md border border-myBlue border-opacity-30 bg-white pl-4 pt-8 text-lg sm:h-24'
                 />
               </fieldset>
               {/* Bedrooms */}
@@ -158,16 +206,16 @@ const ListingsMobileForm = () => {
                   toRentButton
                     ? "col-span-2 row-start-4"
                     : "col-span-1 row-start-3"
-                } relative mt-3`}>
-                <p className='pointer-events-none absolute top-3 left-4 text-sm text-myBlue'>
+                } relative mt-3 sm:mt-7`}>
+                <p className='pointer-events-none absolute top-3 left-4 text-sm text-myBlue sm:text-base'>
                   Bedrooms
                 </p>
-                <MdKeyboardArrowDown className='pointer-events-none absolute bottom-3 right-4 text-3xl' />
+                <MdKeyboardArrowDown className='pointer-events-none absolute bottom-3 right-4 text-3xl sm:bottom-5' />
                 <select
                   id='bedrooms'
                   value={bedroomsSelected}
                   onChange={(e) => setBedroomsSelected(e.target.value)}
-                  className='h-20 w-full appearance-none rounded border border-myBlue border-opacity-30 bg-white pl-4 pt-8 text-lg'>
+                  className='h-20 w-full appearance-none rounded border border-myBlue border-opacity-30 bg-white pl-4 pt-8 text-lg sm:h-24'>
                   {maxBedrooms.map((room) => (
                     <Option
                       key={room.name + 1}
@@ -179,15 +227,15 @@ const ListingsMobileForm = () => {
               </fieldset>
               {/* Max Price - Sales */}
               {forSaleButton && (
-                <fieldset className='relative col-start-2 mt-3'>
-                  <p className='pointer-events-none absolute top-3 left-4 text-sm text-myBlue'>
+                <fieldset className='relative col-start-2 mt-3 sm:mt-7'>
+                  <p className='pointer-events-none absolute top-3 left-4 text-sm text-myBlue sm:text-base'>
                     Max price
                   </p>
-                  <MdKeyboardArrowDown className='pointer-events-none absolute bottom-3 right-4 text-3xl' />
+                  <MdKeyboardArrowDown className='pointer-events-none absolute bottom-3 right-4 text-3xl sm:bottom-5' />
                   <select
                     value={salesMaxPriceSelected}
                     onChange={(e) => setSalesMaxPriceSelected(e.target.value)}
-                    className='h-20 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-4 pt-8 text-lg'>
+                    className='h-20 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-4 pt-8 text-lg sm:h-24'>
                     {totalMaxPrice.map((price) => {
                       return (
                         <Option
@@ -202,18 +250,18 @@ const ListingsMobileForm = () => {
               )}
               {/* Max Price - Rentals | Monthly or Weekly */}
               {toRentButton && (
-                <fieldset className='relative col-start-2 mt-3'>
-                  <p className='pointer-events-none absolute top-3 left-4 text-sm text-myBlue'>
+                <fieldset className='relative col-start-2 mt-3 sm:mt-7'>
+                  <p className='pointer-events-none absolute top-3 left-4 text-sm text-myBlue sm:text-base'>
                     Max price
                   </p>
-                  <MdKeyboardArrowDown className='pointer-events-none absolute bottom-3 right-4 text-3xl' />
+                  <MdKeyboardArrowDown className='pointer-events-none absolute bottom-3 right-4 text-3xl sm:bottom-5' />
                   {monthly && (
                     <select
                       value={rentMonthlyPriceSelected}
                       onChange={(e) =>
                         setRentMonthlyPriceSelected(e.target.value)
                       }
-                      className='h-20 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-4 pt-8 text-lg'>
+                      className='h-20 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-4 pt-8 text-lg sm:h-24'>
                       {maxPricePerMonth.map((price) => {
                         return (
                           <Option
@@ -231,7 +279,7 @@ const ListingsMobileForm = () => {
                       onChange={(e) =>
                         setRentWeeklyPriceSelected(e.target.value)
                       }
-                      className='h-16 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-4 pt-6 text-lg'>
+                      className='h-20 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-4 pt-6 text-lg sm:h-24'>
                       {maxPricePerWeek.map((price) => {
                         return (
                           <Option
@@ -247,24 +295,24 @@ const ListingsMobileForm = () => {
               )}
               {/* Price Range - Rentals Only*/}
               {toRentButton && (
-                <fieldset className='relative col-start-1 row-start-3 mt-3'>
-                  <p className='pointer-events-none absolute top-3 left-4 text-sm text-myBlue'>
+                <fieldset className='relative col-start-1 row-start-3 mt-3 sm:mt-7'>
+                  <p className='pointer-events-none absolute top-3 left-4 text-sm text-myBlue sm:text-base'>
                     Price per
                   </p>
-                  <MdKeyboardArrowDown className='pointer-events-none absolute bottom-3 right-4 text-3xl' />
+                  <MdKeyboardArrowDown className='pointer-events-none absolute bottom-3 right-4 text-3xl sm:bottom-5' />
                   <select
                     value={selectValue}
                     onChange={changeMonthlyWeekly}
-                    className='h-20 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-4 pt-8 text-lg'>
+                    className='h-20 w-full appearance-none rounded-md border border-myBlue border-opacity-30 bg-white pl-4 pt-8 text-lg sm:h-24'>
                     <option value='month'>Month</option>
                     <option value='week'>Week</option>
                   </select>
                 </fieldset>
               )}
               {/* Property Types */}
-              <fieldset className='relative col-span-2 mt-3 p-1'>
-                <p className='text-lg'>Property type</p>
-                <div className='mt-4 grid grid-cols-2 gap-y-6'>
+              <fieldset className='relative col-span-2 mt-3 p-1 sm:mt-7'>
+                <p className='text-lg sm:text-xl'>Property type</p>
+                <div className='mt-4 grid grid-cols-2 gap-y-6 sm:mt-6'>
                   {propertyType.map((property, index) => {
                     return (
                       <div
@@ -280,7 +328,7 @@ const ListingsMobileForm = () => {
                           className='p-3 text-myOrange focus:ring-myOrange'
                         />
                         <label
-                          className='text-lg tracking-wide'
+                          className='text-lg tracking-wide sm:ml-2'
                           htmlFor={property.name}>
                           {property.name}
                         </label>
@@ -292,8 +340,8 @@ const ListingsMobileForm = () => {
               {/* Search Button */}
               <button
                 type='submit'
-                className='col-span-2 mt-3 rounded-md bg-myOrange py-3 px-6 text-lg font-medium text-white'>
-                Find your home
+                className='col-span-2 mt-5 rounded-md bg-myOrange py-4 text-xl font-medium text-white sm:py-5'>
+                Filter results
               </button>
             </div>
           </form>
