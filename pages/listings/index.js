@@ -2,6 +2,8 @@ import { fetchApi, baseURL } from "../../utils/fetchApi"
 import Listings from "../../components/listingspageComps"
 
 const ListingsPage = ({ searchResults }) => {
+  console.log(searchResults)
+
   return (
     <>
       <Listings
