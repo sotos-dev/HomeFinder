@@ -54,7 +54,7 @@ const HeroFormLaptop = ({ numOfProperties }) => {
   const [displayPropertyTypes, setDisplayPropertyTypes] = useState(false)
 
   // PROPERTY CHECKBOXES LOGIC
-  const [propertyNameTypes, setPropertyNameTypes] = useState(["Show all"])
+  // const [propertyNameTypes, setPropertyNameTypes] = useState(["Show all"])
   const [checkboxesState, setCheckboxesState] = useState(checkboxesInfo)
   const [allCheckboxState, setAllCheckboxState] = useState(theAllCheckboxInfo)
 
@@ -121,7 +121,7 @@ const HeroFormLaptop = ({ numOfProperties }) => {
       })
       //------------------------------------------------------------
       // Reset the array of property types' names
-      setPropertyNameTypes(["Show all"])
+      // setPropertyNameTypes(["Show all"])
     }
   }
   // RUNS WHEN CLICKING ON A REGULAR CHECKBOX ONLY
@@ -146,14 +146,16 @@ const HeroFormLaptop = ({ numOfProperties }) => {
       setCheckboxesState(updatedCheckboxes)
       //------------------------------------------------------------
       // Update the array that shows the names of which boxes are checked
-      const validNames = updatedCheckboxes.filter(
-        (item) => item.selected === true
-      )
-      const displayNames = validNames.map((item) => item.value)
-      setPropertyNameTypes(displayNames)
+      // const validNames = updatedCheckboxes.filter(
+      //   (item) => item.selected === true
+      // )
+      // const displayNames = validNames.map((item) => item.value)
+      // setPropertyNameTypes(displayNames)
       //------------------------------------------------------------
       // Get values for filtering
-      const activeValues = validNames.map((item) => item.value)
+      const activeValues = updatedCheckboxes.map((item) =>
+        item.selected ? item.value : ""
+      )
       setPropertyTypeSelected(activeValues.join())
       //------------------------------------------------------------
     }
@@ -173,14 +175,16 @@ const HeroFormLaptop = ({ numOfProperties }) => {
       setCheckboxesState(updatedCheckboxes)
       //------------------------------------------------------------
       // Update the array that shows the names of which boxes are checked
-      const validNames = updatedCheckboxes.filter(
-        (item) => item.selected === true
-      )
-      const displayNames = validNames.map((item) => item.value)
-      setPropertyNameTypes(displayNames)
+      // const validNames = updatedCheckboxes.filter(
+      //   (item) => item.selected === true
+      // )
+      // const displayNames = validNames.map((item) => item.value)
+      // setPropertyNameTypes(displayNames)
       //------------------------------------------------------------
       // Get values for filtering
-      const activeValues = validNames.map((item) => item.value)
+      const activeValues = updatedCheckboxes.map((item) =>
+        item.selected ? item.value : ""
+      )
       setPropertyTypeSelected(activeValues.join())
       //------------------------------------------------------------
       // Check if all checkboxes/options are off
@@ -198,7 +202,7 @@ const HeroFormLaptop = ({ numOfProperties }) => {
         setAllCheckboxState({ ...allCheckboxState, selected: true })
         //------------------------------------------------------------
         // Reset the array of property types' names
-        setPropertyNameTypes(["Show all"])
+        // setPropertyNameTypes(["Show all"])
       }
     }
   }
@@ -362,7 +366,7 @@ const HeroFormLaptop = ({ numOfProperties }) => {
                   </div>
                 </div>
                 {/* BEDROOMS DROPDOWN DIV */}
-                <div className='absolute left-0 top-[105px] z-20 rounded bg-white'>
+                <div className='absolute left-0 top-[105px] z-20 rounded border border-black/30 bg-white shadow-sm'>
                   {displayBedrooms && (
                     <div className='m-5 flex items-center gap-5'>
                       {/* MINIMUM BEDROOMS */}
@@ -433,7 +437,7 @@ const HeroFormLaptop = ({ numOfProperties }) => {
                 {/* PRICE RANGE DROPDOWN DIV */}
                 {/* SALES PRICE RANGE */}
                 {forSaleButton && (
-                  <div className='absolute right-0 top-[105px] z-20 rounded bg-white'>
+                  <div className='absolute right-0 top-[105px] z-20 rounded border border-black/30 bg-white shadow-sm'>
                     {displayPriceRange && (
                       <div className='m-5 flex items-center gap-5'>
                         {/* SALES MINIMUM PRICE */}
@@ -486,7 +490,7 @@ const HeroFormLaptop = ({ numOfProperties }) => {
                 )}
                 {/* RENTALS PRICE RANGE */}
                 {toRentButton && (
-                  <div className='absolute right-0 top-[105px] z-20 rounded bg-white'>
+                  <div className='absolute right-0 top-[105px] z-20 rounded border border-black/30 bg-white shadow-sm'>
                     {displayPriceRange && (
                       <div className='grid w-[450px] grid-cols-2 gap-5 p-5'>
                         {/* PER MONTH/WEEK */}
@@ -616,15 +620,7 @@ const HeroFormLaptop = ({ numOfProperties }) => {
                     Property type
                   </p>
                   <div className='mt-3 flex items-center justify-between'>
-                    <p>
-                      {propertyNameTypes.map((typeName) => {
-                        return (
-                          <span key={typeName} className='mr-2'>
-                            {typeName}
-                          </span>
-                        )
-                      })}
-                    </p>
+                    <p>Show all</p>
                     {displayPropertyTypes ? (
                       <MdKeyboardArrowUp className='pointer-events-none mr-5 text-4xl' />
                     ) : (
@@ -633,7 +629,7 @@ const HeroFormLaptop = ({ numOfProperties }) => {
                   </div>
                 </div>
                 {/* PROPERTY TYPES DROPDOWN DIV */}
-                <div className='absolute left-0 top-[105px] z-20 rounded bg-white '>
+                <div className='absolute left-0 top-[105px] z-20 rounded border border-black/30 bg-white shadow-sm '>
                   {displayPropertyTypes && (
                     <>
                       <div className='mr-10 grid w-[350px] grid-cols-2 gap-4 truncate p-4'>

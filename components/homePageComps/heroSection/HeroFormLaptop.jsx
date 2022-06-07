@@ -50,7 +50,7 @@ const HeroFormLaptop = () => {
   const [displayPropertyTypes, setDisplayPropertyTypes] = useState(false)
 
   // PROPERTY CHECKBOXES LOGIC
-  const [propertyNameTypes, setPropertyNameTypes] = useState(["Show all"])
+  // const [propertyNameTypes, setPropertyNameTypes] = useState(["Show all"])
   const [checkboxesState, setCheckboxesState] = useState(checkboxesInfo)
   const [allCheckboxState, setAllCheckboxState] = useState(theAllCheckboxInfo)
 
@@ -117,7 +117,7 @@ const HeroFormLaptop = () => {
       })
       //------------------------------------------------------------
       // Reset the array of property types' names
-      setPropertyNameTypes(["Show all"])
+      // setPropertyNameTypes(["Show all"])
     }
   }
   // RUNS WHEN CLICKING ON A REGULAR CHECKBOX ONLY
@@ -142,14 +142,16 @@ const HeroFormLaptop = () => {
       setCheckboxesState(updatedCheckboxes)
       //------------------------------------------------------------
       // Update the array that shows the names of which boxes are checked
-      const validNames = updatedCheckboxes.filter(
-        (item) => item.selected === true
-      )
-      const displayNames = validNames.map((item) => item.value)
-      setPropertyNameTypes(displayNames)
+      // const validNames = updatedCheckboxes.filter(
+      //   (item) => item.selected === true
+      // )
+      // const displayNames = validNames.map((item) => item.value)
+      // setPropertyNameTypes(displayNames)
       //------------------------------------------------------------
       // Get values for filtering
-      const activeValues = validNames.map((item) => item.value)
+      const activeValues = updatedCheckboxes.map((item) =>
+        item.selected ? item.value : ""
+      )
       setPropertyTypeSelected(activeValues.join())
       //------------------------------------------------------------
     }
@@ -169,14 +171,16 @@ const HeroFormLaptop = () => {
       setCheckboxesState(updatedCheckboxes)
       //------------------------------------------------------------
       // Update the array that shows the names of which boxes are checked
-      const validNames = updatedCheckboxes.filter(
-        (item) => item.selected === true
-      )
-      const displayNames = validNames.map((item) => item.value)
-      setPropertyNameTypes(displayNames)
+      // const validNames = updatedCheckboxes.filter(
+      //   (item) => item.selected === true
+      // )
+      // const displayNames = validNames.map((item) => item.value)
+      // setPropertyNameTypes(displayNames)
       //------------------------------------------------------------
       // Get values for filtering
-      const activeValues = validNames.map((item) => item.value)
+      const activeValues = updatedCheckboxes.map((item) =>
+        item.selected ? item.value : ""
+      )
       setPropertyTypeSelected(activeValues.join())
       //------------------------------------------------------------
       // Check if all checkboxes/options are off
@@ -194,7 +198,7 @@ const HeroFormLaptop = () => {
         setAllCheckboxState({ ...allCheckboxState, selected: true })
         //------------------------------------------------------------
         // Reset the array of property types' names
-        setPropertyNameTypes(["Show all"])
+        // setPropertyNameTypes(["Show all"])
       }
     }
   }
@@ -582,15 +586,7 @@ const HeroFormLaptop = () => {
                     Property type
                   </p>
                   <div className='mt-3 flex items-center justify-between'>
-                    <p>
-                      {propertyNameTypes.map((typeName) => {
-                        return (
-                          <span key={typeName} className='mr-2'>
-                            {typeName}
-                          </span>
-                        )
-                      })}
-                    </p>
+                    <p>Show all</p>
                     {displayPropertyTypes ? (
                       <MdKeyboardArrowUp className='pointer-events-none mr-5 text-4xl' />
                     ) : (
