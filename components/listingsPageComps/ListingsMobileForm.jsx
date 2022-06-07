@@ -10,7 +10,7 @@ import {
   maxPricePerWeek,
   propertyType,
 } from "../../utils/homePageData"
-import Option from "../homepageComps/heroSection/Option"
+import Option from "../homePageComps/heroSection/Option"
 
 const ListingsMobileForm = ({ numOfProperties }) => {
   const router = useRouter()
@@ -139,8 +139,8 @@ const ListingsMobileForm = ({ numOfProperties }) => {
       </div>
       <div
         className={`${
-          showMobileFilters ? " z-10 translate-y-0" : " translate-y-full"
-        } fixed top-0 left-0 right-0 bottom-0  transition-all duration-500 lg:hidden`}>
+          showMobileFilters ? "translate-y-0" : " translate-y-full"
+        } fixed top-0 left-0 right-0 bottom-0 z-10  transition-all duration-500 lg:hidden`}>
         <div className='mx-auto flex h-screen w-full items-start justify-center overflow-y-scroll bg-neutral-50 py-6 px-7 shadow-lg sm:items-center'>
           {/* Mobile Form */}
           <form onSubmit={submitSearch} className='mt-5'>

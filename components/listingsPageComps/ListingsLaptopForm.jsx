@@ -14,9 +14,8 @@ import {
   checkboxesInfo,
   theAllCheckboxInfo,
 } from "../../utils/homePageData"
-import Option from "../homepageComps/heroSection/Option"
-import Checkbox from "../homepageComps/heroSection/Checkbox"
-import TheAllCheckbox from "../homepageComps/heroSection/TheAllCheckbox"
+import Option from "../homePageComps/heroSection/Option"
+import TheAllCheckbox from "../homePageComps/heroSection/TheAllCheckbox"
 import Container from "../../ui/container"
 
 const HeroFormLaptop = ({ numOfProperties }) => {
