@@ -1,4 +1,4 @@
-import CTASection from "../components/homePageComps/CTASection"
+import CitiesSection from "../components/homePageComps/citiesSection"
 import HeroSection from "../components/homePageComps/heroSection"
 
 const HomePage = () => {
@@ -7,7 +7,7 @@ const HomePage = () => {
       {/* Hero Section */}
       <HeroSection />
       {/* Featured Section */}
-      <CTASection />
+      {/* <CitiesSection /> */}
     </>
   )
 }

@@ -8,8 +8,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        myBlue: "#49566A",
-        myOrange: "#FF914D",
+        myBlue: "#3e4959",
+        myOrange: "#ed6565",
       },
       maxWidth: {},
     },

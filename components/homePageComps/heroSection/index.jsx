@@ -1,5 +1,6 @@
 import Image from "next/image"
-import HeroImage from "../../../assets/images/hero-image.jpg"
+// import HeroImage from "../../../assets/images/hero-image.jpg"
+import HeroImage from "../../../assets/images/hero-photo.jpg"
 import HeroFormLaptop from "./HeroFormLaptop"
 import HeroFormMobile from "./HeroFormMobile"
 

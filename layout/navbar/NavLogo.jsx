@@ -1,4 +1,4 @@
-import Logo from "../../assets/images/RealTor.svg"
+import Logo from "../../assets/images/Logo/home-finder-logo.svg"
 import Image from "next/image"
 import Link from "next/link"
 

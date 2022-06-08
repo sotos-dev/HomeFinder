@@ -1,4 +1,3 @@
-import Head from "next/head"
 import { Router } from "next/router"
 import nprogress from "nprogress"
 import Layout from "../layout"

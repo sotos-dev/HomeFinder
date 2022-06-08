@@ -39,7 +39,7 @@ const NavBar = () => {
         <Container>
           <div className='relative z-10 flex items-center justify-between py-4 md:py-5 lg:py-7'>
             {/* Logo */}
-            <div className='mt-1 w-24 md:w-36 lg:w-44'>
+            <div className='mt-2 w-32 sm:w-44 md:w-56 lg:w-60'>
               <Logo />
             </div>
             {/* Sandwich Button */}
@@ -87,7 +87,7 @@ const NavBar = () => {
                 isMenuOpen ? "translate-x-0" : "-translate-x-full"
               } fixed top-0 z-20 -ml-5 h-screen w-3/4 rounded-tr-lg rounded-br-lg bg-gray-50 shadow-xl transition-transform duration-500 md:hidden`}>
               <ul className='flex flex-col'>
-                <div className='ml-5 mt-6 mb-3 w-24 md:w-36 lg:w-44'>
+                <div className='ml-5 mt-7 mb-3 w-32 md:w-36 lg:w-44'>
                   <Logo />
                 </div>
                 <Divider />
