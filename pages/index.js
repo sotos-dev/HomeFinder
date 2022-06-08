@@ -1,4 +1,5 @@
-import CitiesSection from "../components/homePageComps/citiesSection"
+import BrandsSection from "../components/homePageComps/brandsSection"
+import FeaturedCitiesSection from "../components/homePageComps/featuredCitiesSection"
 import HeroSection from "../components/homePageComps/heroSection"
 
 const HomePage = () => {
@@ -6,8 +7,10 @@ const HomePage = () => {
     <>
       {/* Hero Section */}
       <HeroSection />
-      {/* Featured Section */}
-      {/* <CitiesSection /> */}
+      {/* Brands Section */}
+      <BrandsSection />
+      {/* Featured Cities Section */}
+      <FeaturedCitiesSection />
     </>
   )
 }
