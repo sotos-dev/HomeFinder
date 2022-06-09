@@ -1,16 +1,17 @@
+import millify from "millify"
 import Image from "next/image"
 import { BiBath } from "react-icons/bi"
 import { MdOutlineBed } from "react-icons/md"
 import { TbSofa } from "react-icons/tb"
-import PlaceholderImage from "../../../assets/images/placeholder.png"
-import millify from "millify"
+import PlaceholderImage from "../assets/images/placeholder.png"
+import Divider from "../ui/divider"
 
-const FeaturedCard = ({ listing }) => {
+const Card = ({ listing }) => {
   const changedDateFormat = listing.listing_date.slice(0, 10)
 
   return (
     <>
-      <div className='rounded bg-stone-100 shadow-md shadow-stone-200'>
+      <div className='rounded-3xl bg-white shadow-sm'>
         {/* Card Image */}
         <Image
           blurDataURL
@@ -20,7 +21,7 @@ const FeaturedCard = ({ listing }) => {
           width={400}
           layout='responsive'
           height={260}
-          className='rounded object-cover'
+          className='rounded-tl-3xl rounded-tr-3xl object-cover'
         />
         {/* Card Content */}
         <div className='flex flex-col items-start justify-between overflow-hidden px-4 pt-2 pb-4'>
@@ -40,42 +41,40 @@ const FeaturedCard = ({ listing }) => {
             </p>
           )}
           {listing.listing_status === "sale" && (
-            <h2 className='mt-3 mb-4 text-2xl font-medium text-myBlue'>
+            <h2 className='mt-3 text-2xl font-medium text-myBlue'>
               £ {millify(listing.price)}
             </h2>
           )}
-          {/* Icons */}
-          <div className='mt-0  flex items-center justify-start gap-3'>
-            <div className='flex items-center justify-center gap-2'>
-              <MdOutlineBed size={30} className='text-myBlue' />
-              <p className='text-xl'>{listing.num_bedrooms}</p>
-            </div>
-            <div className='flex items-center justify-center gap-2'>
-              <BiBath size={30} className='text-myBlue' />
-              <p className='text-xl'>{listing.num_bathrooms}</p>
-            </div>
-            <div className='flex items-center justify-center gap-2'>
-              <TbSofa size={30} className='text-myBlue' />
-              <p className='text-xl'>{listing.num_recepts}</p>
-            </div>
-          </div>
           {/* Property Title */}
-          <h2 className='mt-3 mb-1 font-semibold text-myBlue lg:text-lg xl:text-xl'>
+          <h2 className='mt-1 mb-1 truncate text-myBlue lg:text-lg xl:text-xl'>
             {listing.title}
           </h2>
           {/* Property Address */}
-          <p className='max-w-xs truncate font-medium opacity-70'>
+          <p className='mb-6 max-w-xs truncate opacity-60'>
             {listing.displayable_address}
           </p>
+          {/* Icons */}
+          <div className='mb-3  flex items-center justify-start gap-3'>
+            <div className='flex items-center justify-center gap-2'>
+              <MdOutlineBed size={27} className='text-black/60' />
+              <p className='text-lg'>{listing.num_bedrooms}</p>
+            </div>
+            <div className='flex items-center justify-center gap-2'>
+              <BiBath size={27} className='text-black/60' />
+              <p className='text-lg'>{listing.num_bathrooms}</p>
+            </div>
+            <div className='flex items-center justify-center gap-2'>
+              <TbSofa size={27} className='text-black/60' />
+              <p className='text-lg'>{listing.num_recepts}</p>
+            </div>
+          </div>
+          <Divider width='w-full' />
           {/* Listing Date */}
           <p className='mt-3 opacity-60'>Listed on {changedDateFormat}</p>
-          <button className='mt-3 rounded-md bg-myBlue p-2 px-8 text-lg font-medium text-white lg:py-3'>
-            Featured property
-          </button>
         </div>
       </div>
     </>
   )
 }
 
-export default FeaturedCard
+export default Card

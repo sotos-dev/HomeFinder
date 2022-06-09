@@ -1,6 +1,6 @@
 import Image from "next/image"
 import Container from "../ui/container"
-import HeroGraphic from "../assets/images/hero-graphic.jpg"
+// import HeroGraphic from "../assets/images/hero-graphic.jpg"
 
 const About = () => {
   return (
@@ -8,7 +8,7 @@ const About = () => {
       <Container>
         <div className='mt-10 flex h-screen flex-col items-start justify-center sm:h-[calc(100vh-284px)] sm:items-center'>
           <div className='mb-5 max-w-[300px] sm:mx-auto md:max-w-[400px]'>
-            <Image src={HeroGraphic} alt='logo' />
+            {/* <Image src={HeroGraphic} alt='logo' /> */}
           </div>
           <div className='mx-auto max-w-3xl'>
             <h2 className='mb-10 text-lg font-medium opacity-80 sm:text-center md:text-xl md:font-normal'>

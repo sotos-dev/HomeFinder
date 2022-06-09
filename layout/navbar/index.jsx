@@ -4,10 +4,10 @@ import { IoMdInformationCircle } from "react-icons/io"
 import { MdPermContactCalendar } from "react-icons/md"
 import { FcMenu } from "react-icons/fc"
 import Divider from "../../ui/divider"
-import Navlinks from "./NavLinks"
-import Logo from "./NavLogo"
+import Navlinks from "../../ui/navlinks"
 import { useEffect, useState, useRef } from "react"
-import Container from "../../ui/container"
+import LogoComp from "../../ui/logo"
+import Logo from "../../assets/images/Logo/logo-dark.svg"
 
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -39,9 +39,7 @@ const NavBar = () => {
         <div className='mx-auto max-w-[1700px] px-3 sm:px-5 md:px-7 lg:px-10'>
           <div className='relative z-10 flex items-center justify-between py-4 md:py-5 lg:py-7'>
             {/* Logo */}
-            <div className='mt-2 w-32 sm:w-44 md:w-56 lg:w-60'>
-              <Logo />
-            </div>
+            <LogoComp logo={Logo} />
             {/* Sandwich Button */}
             <button
               ref={mobileButtonRef}
@@ -57,26 +55,36 @@ const NavBar = () => {
                   name='My Home'
                   destination='/'
                   icon={<HiHome size={25} />}
+                  textColor='text-myBlue'
+                  padX='mx-5'
                 />
                 <Navlinks
                   name='Listings'
                   destination='/listings'
                   icon={<HiSearch size={25} />}
+                  textColor='text-myBlue'
+                  padX='mx-5'
                 />
                 <Navlinks
                   name='Featured'
                   destination='/featured'
                   icon={<BsFillKeyFill size={25} />}
+                  textColor='text-myBlue'
+                  padX='mx-5'
                 />
                 <Navlinks
                   name='About'
                   destination='/about'
                   icon={<IoMdInformationCircle size={25} />}
+                  textColor='text-myBlue'
+                  padX='mx-5'
                 />
                 <Navlinks
                   name='Contact'
                   destination='/contact'
                   icon={<MdPermContactCalendar size={25} />}
+                  textColor='text-myBlue'
+                  padX='mx-5'
                 />
               </ul>
             </nav>
@@ -88,36 +96,46 @@ const NavBar = () => {
               } fixed top-0 z-20 -ml-5 h-screen w-3/4 rounded-tr-lg rounded-br-lg bg-gray-50 shadow-xl transition-transform duration-500 md:hidden`}>
               <ul className='flex flex-col'>
                 <div className='ml-5 mt-7 mb-3 w-32 sm:w-44'>
-                  <Logo />
+                  <LogoComp logo={Logo} />
                 </div>
-                <Divider />
+                <Divider width='w-11/12' />
                 <Navlinks
                   name='My Home'
                   destination='/'
+                  padY='py-7'
+                  padX='px-5'
                   icon={<HiHome size={25} />}
                 />
-                <Divider />
+                <Divider width='w-11/12' />
                 <Navlinks
                   name='Listings'
                   destination='/listings'
+                  padY='py-7'
+                  padX='px-5'
                   icon={<HiSearch size={25} />}
                 />
-                <Divider />
+                <Divider width='w-11/12' />
                 <Navlinks
                   name='Featured'
                   destination='/featured'
+                  padY='py-7'
+                  padX='px-5'
                   icon={<BsFillKeyFill size={25} />}
                 />
-                <Divider />
+                <Divider width='w-11/12' />
                 <Navlinks
                   name='About'
                   destination='/about'
+                  padY='py-7'
+                  padX='px-5'
                   icon={<IoMdInformationCircle size={25} />}
                 />
-                <Divider />
+                <Divider width='w-11/12' />
                 <Navlinks
                   name='Contact'
                   destination='/contact'
+                  padY='py-7'
+                  padX='px-5'
                   icon={<MdPermContactCalendar size={25} />}
                 />
               </ul>

@@ -1,5 +1,5 @@
-import FeaturedHeroSection from "../../components/featuredPageComps/heroSection"
-import FeaturedResultsSection from "../../components/featuredPageComps/featuredResultsSection"
+import FeaturedHeroSection from "../../components/3-featuredPageComps/1-heroSection"
+import FeaturedResultsSection from "../../components/3-featuredPageComps/2-featuredResultsSection"
 import { fetchApi, baseURL } from "../../utils/fetchApi"
 
 const FeaturedPage = ({ searchResults }) => {

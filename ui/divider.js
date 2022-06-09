@@ -1,7 +1,7 @@
-const Divider = () => {
+const Divider = ({ width }) => {
   return (
     <>
-      <div className='m-auto h-[1px] w-11/12 bg-slate-300/70'></div>
+      <div className={`${width} m-auto h-[1px] bg-slate-300/70`}></div>
     </>
   )
 }
