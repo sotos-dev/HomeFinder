@@ -11,7 +11,7 @@ const Card = ({ listing }) => {
 
   return (
     <>
-      <div className='rounded-3xl bg-white shadow-sm'>
+      <div className='snap-center overflow-hidden rounded-3xl bg-white shadow-sm'>
         {/* Card Image */}
         <Image
           blurDataURL
