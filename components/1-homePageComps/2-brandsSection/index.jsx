@@ -10,7 +10,7 @@ const BrandsSection = () => {
   return (
     <>
       <Container>
-        <div className='mt-10 flex flex-col flex-wrap items-center justify-center gap-10 bg-stone-100 p-10 sm:flex-row sm:gap-9 lg:justify-around xl:gap-16'>
+        <div className='flex flex-col flex-wrap items-center justify-center gap-10 bg-stone-100 p-10 sm:flex-row sm:gap-9 lg:justify-around xl:gap-16'>
           <Image src={Realtor5} alt='Some realtor logo' />
           <Image src={Realtor2} alt='Some realtor logo' />
           <Image src={Realtor3} alt='Some realtor logo' />

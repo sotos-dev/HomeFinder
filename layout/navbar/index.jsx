@@ -36,7 +36,7 @@ const NavBar = () => {
   return (
     <>
       <header className=' w-full  shadow'>
-        <Container>
+        <div className='mx-auto max-w-[1700px] px-3 sm:px-5 md:px-7 lg:px-10'>
           <div className='relative z-10 flex items-center justify-between py-4 md:py-5 lg:py-7'>
             {/* Logo */}
             <div className='mt-2 w-32 sm:w-44 md:w-56 lg:w-60'>
@@ -123,7 +123,7 @@ const NavBar = () => {
               </ul>
             </nav>
           </div>
-        </Container>
+        </div>
       </header>
     </>
   )
