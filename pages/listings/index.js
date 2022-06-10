@@ -1,5 +1,5 @@
 import { fetchApi, baseURL } from "../../utils/fetchApi"
-import Listings from "../../components/listingsPageComps"
+import Listings from "../../components/2-listingsPageComps"
 
 const ListingsPage = ({ searchResults }) => {
   return (

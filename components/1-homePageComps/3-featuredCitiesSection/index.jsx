@@ -16,7 +16,7 @@ const FeaturedCitiesSection = () => {
           <div className='flex w-full snap-x gap-3 overflow-x-auto sm:grid sm:grid-cols-2 sm:gap-5 md:grid-cols-4 md:gap-4 lg:grid-cols-4 lg:gap-6'>
             {/* Gets image data from UTILS folder */}
             {featuredImagesData.map((image) => {
-              return <FeaturedCard image={image} />
+              return <FeaturedCard key={image.alt} image={image} />
             })}
           </div>
         </div>

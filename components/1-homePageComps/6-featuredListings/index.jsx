@@ -10,15 +10,24 @@ const FeaturedListings = ({ listings: { listing } }) => {
         <Container>
           {/* Content */}
           <div className=''></div>
-          <LargeTitle title='Featured Listings' />
+          <LargeTitle title='Featured Listings in London' />
           {/* Featured Cards */}
-          <div className='flex snap-x gap-5 overflow-x-auto sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
+          <div className='flex w-full snap-x gap-5 overflow-x-auto sm:grid sm:grid-cols-2 lg:grid-cols-4'>
             {listing.map((listing) => {
               return (
-                <Link href='/featured' passHref>
-                  <a className=''>
-                    <Card listing={listing} />
-                  </a>
+                <Link
+                  key={listing.listing_id}
+                  href={{
+                    pathname: "/featured",
+                    query: {
+                      area: "london",
+                      include_featured_properties: "1",
+                      category: "residential",
+                      property_type: "sale",
+                    },
+                  }}
+                  passHref>
+                  <Card listing={listing} />
                 </Link>
               )
             })}

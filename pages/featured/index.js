@@ -3,7 +3,6 @@ import FeaturedResultsSection from "../../components/3-featuredPageComps/2-featu
 import { fetchApi, baseURL } from "../../utils/fetchApi"
 
 const FeaturedPage = ({ searchResults }) => {
-  console.log(searchResults)
   return (
     <>
       {/* Hero Section */}

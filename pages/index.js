@@ -7,7 +7,6 @@ import FeaturedListings from "../components/1-homePageComps/6-featuredListings"
 import { fetchApi, baseURL } from "../utils/fetchApi"
 
 const HomePage = ({ featuredListings }) => {
-  console.log(featuredListings)
   return (
     <>
       {/* Hero Section */}

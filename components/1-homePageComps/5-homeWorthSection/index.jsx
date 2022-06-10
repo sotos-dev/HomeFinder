@@ -6,6 +6,7 @@ import BreakerIcon from "../../../assets/images/breaker-Icon.svg"
 import MediumTitle from "../../../ui/mediumTitle"
 import Paragraph from "../../../ui/paragraph"
 import { homeWorthText } from "../../../utils/homePageUtils/5-homeWorthSectionData"
+import Link from "next/link"
 
 const HomeWorthSection = () => {
   return (
@@ -17,10 +18,12 @@ const HomeWorthSection = () => {
           <div className='max-w-lg text-white md:max-w-sm lg:max-w-lg xl:max-w-xl 2xl:max-w-3xl'>
             <MediumTitle title='See what homes around your area are worth' />
             <Paragraph text={homeWorthText} />
-            <button className='flex items-center gap-5 rounded-lg bg-myOrange py-4 px-10'>
-              Browse properties
-              <HiArrowNarrowRight size={20} />
-            </button>
+            <Link href='/listings' passHref>
+              <a className='flex max-w-[270px] items-center gap-5 rounded-lg bg-myOrange py-4 px-10'>
+                Browse properties
+                <HiArrowNarrowRight size={20} />
+              </a>
+            </Link>
             <div className='hidden md:block'>
               <Image src={BreakerIcon} alt='long generic icon' />
             </div>

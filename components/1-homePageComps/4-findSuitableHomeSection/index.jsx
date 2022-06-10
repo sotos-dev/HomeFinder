@@ -2,8 +2,6 @@ import Image from "next/image"
 import Container from "../../../ui/container"
 import HouseEntrance from "../../../assets/images/house-entrance.jpg"
 import { IconAreaData } from "../../../utils/homePageUtils/4-iconAreaData"
-import { HiOutlineMail } from "react-icons/hi"
-import { ImCalculator } from "react-icons/im"
 import LargeTitle from "../../../ui/largeTitle"
 import IconArea from "./IconArea"
 import Paragraph from "../../../ui/paragraph"
@@ -28,6 +26,7 @@ const FindSuitableHomeSection = () => {
                     title={icon.title}
                     paragraph={icon.paragraph}
                     icon={icon.icon}
+                    key={icon.title}
                   />
                 )
               })}

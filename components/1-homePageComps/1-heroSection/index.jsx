@@ -9,7 +9,12 @@ const HeroSection = () => {
       <section className='mx-auto max-w-[1700px]  md:px-7 lg:mt-14 lg:px-10'>
         <HeroFormLaptop />
         <div className='pointer-events-none md:mt-10'>
-          <Image priority className='-z-10 md:rounded-2xl' src={HeroImage} />
+          <Image
+            priority
+            className='-z-10 md:rounded-2xl'
+            src={HeroImage}
+            alt='UK homes'
+          />
         </div>
         <HeroFormMobile />
       </section>

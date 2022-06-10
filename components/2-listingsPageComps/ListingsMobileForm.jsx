@@ -10,7 +10,7 @@ import {
   maxPricePerWeek,
   propertyType,
 } from "../../utils/homePageData"
-import Option from "../homePageComps/heroSection/Option"
+import Option from "../1-homePageComps/1-heroSection/Option"
 
 const ListingsMobileForm = ({ numOfProperties }) => {
   const router = useRouter()
