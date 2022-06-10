@@ -13,7 +13,7 @@ const Footer = () => {
         {/* Wrapper */}
         <div className='mx-auto max-w-[1700px] px-3 sm:px-5 md:px-7 lg:px-10'>
           {/* Flex wrapper */}
-          <div className='relative z-10 grid grid-cols-1  gap-5 py-5 lg:grid-cols-6 lg:py-7 xl:flex-row'>
+          <div className='relative grid grid-cols-1  gap-5 py-5 lg:grid-cols-6 lg:py-7 xl:flex-row'>
             {/* Logo */}
             <div className='place-self-center lg:col-start-1 lg:col-end-2 lg:place-self-start'>
               <LogoComp logo={Logo} />
