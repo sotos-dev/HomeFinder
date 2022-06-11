@@ -79,13 +79,6 @@ const NavBar = () => {
                   textColor='text-myBlue'
                   padX='mx-5'
                 />
-                <Navlinks
-                  name='Contact'
-                  destination='/contact'
-                  icon={<MdPermContactCalendar size={25} />}
-                  textColor='text-myBlue'
-                  padX='mx-5'
-                />
               </ul>
             </nav>
             {/* Mobile-NavMenu */}
@@ -130,13 +123,6 @@ const NavBar = () => {
                   padX='px-5'
                   icon={<IoMdInformationCircle size={25} />}
                 />
-                <Divider width='w-11/12' />
-                <Navlinks
-                  name='Contact'
-                  destination='/contact'
-                  padY='py-7'
-                  padX='px-5'
-                  icon={<MdPermContactCalendar size={25} />}
                 />
               </ul>
             </nav>
