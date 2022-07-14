@@ -123,7 +123,6 @@ const NavBar = () => {
                   padX='px-5'
                   icon={<IoMdInformationCircle size={25} />}
                 />
-                />
               </ul>
             </nav>
           </div>

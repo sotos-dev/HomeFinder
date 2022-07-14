@@ -70,7 +70,7 @@ const ListingsCard = ({ listing }) => {
           {/* Listing Date */}
           <p className='mt-3 opacity-60'>Listed on {changedDateFormat}</p>
           <button className='mt-3 rounded-md bg-myBlue p-2 px-8 text-lg font-medium text-white lg:py-3'>
-            See property
+            Available property
           </button>
         </div>
       </div>

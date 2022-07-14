@@ -1,34 +1,49 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Home Finder is a portfolio app where you can find available properties for rent or sale in the UK - It uses ZooplaAPI to get data.
 
-## Getting Started
+## ## https://this-homedfinder.netlify.app/
 
-First, run the development server:
+## Functionality:
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+A) You can search, filter and sort available properties for rent or sale in the UK
+Filter options:
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+1. Search area
+2. Bedrooms - min/max
+3. Price range - min/max
+4. Property type - Detached, Semi-detached, terraced, flat etc
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+Sorting options:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+1. Date listing was created - oldest/latest
+2. Sort by price - from cheapest to most expensive and the opposite.
 
-## Learn More
+B) There is a 'Featured' page if you want to see what properties are featured by Zoopla.
 
-To learn more about Next.js, take a look at the following resources:
+C) You can search properties from the 'Homepage' or the 'Listings' page
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Technologies used:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+Front-end: React with Next.js -> (For server side rendering)
+APIs: RapidAPI -> ZooplaAPI -> (500 free calls per month)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Libraries/Packages:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Axios -> for data fetching
+2. millify -> to beautify properties prices
+3. nprogress -> to show a thin loading bar on the top whilst data is fetched
+4. Tailwind -> for rapid styiling
+
+- Disclaimer:
+  Zoopla does not expose an api endpoint for individual listings at this time.
+  As far as I know you can't move a listing's data through Next's router either.
+  This is the reason there is no 'individual' listing page for every listing that you can visit.
+
+- Disclaimer2: This portfolio project has not been componetized greatly. The main point of this app initially was to display capabilities such as working with react and server side rendering (getServerSideProps), working with APIs and filtering and sorting results based on user's input.
+
+Have fun with the website here is the link!
+
+## https://this-homedfinder.netlify.app/
