@@ -1,6 +1,6 @@
 import axios from "axios"
 
-export const baseURL = "https://zoopla.p.rapidapi.com/"
+export const baseURL = "https://zoopla.p.rapidapi.com"
 
 export const fetchApi = async (url) => {
   const { data } = await axios.get(url, {

@@ -3,7 +3,7 @@ import Container from "../../../ui/container"
 import LargeTitle from "../../../ui/largeTitle"
 import About2Graphic from "../../../assets/images/about-2-graphic.png"
 import Paragraph from "../../../ui/paragraph"
-import AboutIcon from "../../../assets/images/about-icon.png"
+// import AboutIcon from "../../../assets/images/about-icon.png"
 
 const WhoWeAreSection = () => {
   return (
@@ -24,9 +24,9 @@ const WhoWeAreSection = () => {
             <Image src={About2Graphic} alt='big family in home' />
           </div>
         </div>
-        <div className='hidden w-full md:block'>
-          <Image src={AboutIcon} alt='icon' />
-        </div>
+        {/* <div className='hidden w-full md:block'>
+          <Image src={AboutIcon} alt='about icon' />
+        </div> */}
       </Container>
     </>
   )
