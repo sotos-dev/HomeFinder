@@ -21,7 +21,11 @@ const WhoWeAreSection = () => {
             />
           </div>
           <div className='md:w-1/2'>
-            <Image src={About2Graphic} alt='big family in home' />
+            <Image
+              src={About2Graphic}
+              alt='big family in home'
+              placeholder='blur'
+            />
           </div>
         </div>
         {/* <div className='hidden w-full md:block'>

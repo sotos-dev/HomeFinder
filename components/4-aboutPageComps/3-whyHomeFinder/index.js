@@ -20,7 +20,11 @@ const WhyHomeFinder = () => {
           </div>
           {/* Image */}
           <div className='md:w-2/3 2xl:w-1/2'>
-            <Image src={About3Graphic} alt='big family in home' />
+            <Image
+              src={About3Graphic}
+              alt='big family in home'
+              placeholder='blur'
+            />
           </div>
         </div>
       </Container>

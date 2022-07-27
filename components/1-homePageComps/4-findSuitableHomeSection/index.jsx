@@ -39,6 +39,7 @@ const FindSuitableHomeSection = () => {
               alt='house entrance'
               layout='fill'
               objectFit='cover'
+              placeholder='blur'
             />
           </div>
         </div>

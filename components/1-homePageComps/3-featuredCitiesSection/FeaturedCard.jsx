@@ -30,6 +30,7 @@ const FeaturedCard = ({
             layout={layout}
             objectFit={objectFit}
             className={className}
+            placeholder='blur'
           />
           <h3 className='absolute bottom-3 left-3 z-10 text-xl text-white sm:text-3xl md:text-2xl lg:bottom-5 lg:left-5 xl:text-3xl 2xl:text-4xl'>
             {name}

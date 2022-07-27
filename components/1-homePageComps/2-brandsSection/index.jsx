@@ -13,19 +13,44 @@ const BrandsSection = () => {
         <Container>
           <div className='-my-10 flex w-full snap-x items-center justify-center gap-x-14 overflow-x-auto p-10 sm:flex-row sm:flex-wrap  sm:gap-9 lg:justify-around  xl:gap-16'>
             <div className='flex-shrink-0 snap-center'>
-              <Image src={Realtor5} alt='Some realtor logo' />
+              <Image
+                src={Realtor5}
+                alt='Some realtor logo'
+                placeholder='blur'
+                blurDataURL={Realtor5}
+              />
             </div>
             <div className='flex-shrink-0 snap-center'>
-              <Image src={Realtor2} alt='Some realtor logo' />
+              <Image
+                src={Realtor2}
+                alt='Some realtor logo'
+                placeholder='blur'
+                blurDataURL={Realtor2}
+              />
             </div>
             <div className='flex-shrink-0 snap-center'>
-              <Image src={Realtor3} alt='Some realtor logo' />
+              <Image
+                src={Realtor3}
+                alt='Some realtor logo'
+                placeholder='blur'
+                blurDataURL={Realtor3}
+              />
             </div>
             <div className='flex-shrink-0 snap-center'>
-              <Image src={Realtor4} alt='Some realtor logo' />
+              <Image
+                src={Realtor4}
+                alt='Some realtor logo'
+                placeholder='blur'
+                blurDataURL={Realtor4}
+              />
             </div>
             <div className='flex-shrink-0 snap-center'>
-              <Image src={Realtor1} alt='Some realtor logo' />
+              <Image
+                src={Realtor1}
+                alt='Some realtor logo'
+                placeholder='blur'
+                blurDataURL={Realtor1}
+              />
             </div>
           </div>
         </Container>

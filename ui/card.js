@@ -16,7 +16,9 @@ const Card = React.forwardRef(({ listing, onClick, href }, ref) => {
         <div className='snap-center overflow-hidden rounded-3xl bg-white shadow-sm'>
           {/* Card Image */}
           <Image
-            blurDataURL
+            blurDataURL={
+              listing.image_url ? listing.image_645_430_url : PlaceholderImage
+            }
             placeholder='blur'
             src={
               listing.image_url ? listing.image_645_430_url : PlaceholderImage

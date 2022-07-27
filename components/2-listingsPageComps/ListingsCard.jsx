@@ -13,7 +13,9 @@ const ListingsCard = ({ listing }) => {
       <div className='rounded bg-stone-100 shadow-md shadow-stone-200'>
         {/* Card Image */}
         <Image
-          blurDataURL
+          blurDataURL={
+            listing.image_url ? listing.image_645_430_url : PlaceholderImage
+          }
           placeholder='blur'
           src={listing.image_url ? listing.image_645_430_url : PlaceholderImage}
           alt='property'

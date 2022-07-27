@@ -12,6 +12,7 @@ const HeroSection = () => {
             priority
             layout='fill'
             objectFit='cover'
+            placeholder='blur'
           />
         </div>
         <h1 className='mx-5 max-w-sm text-center text-xl text-white sm:text-2xl md:max-w-lg md:text-3xl lg:max-w-xl lg:text-4xl xl:max-w-3xl xl:text-5xl'>

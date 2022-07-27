@@ -32,7 +32,12 @@ const AboutHeroSection = () => {
           </div>
           {/* Image */}
           <div className='md:w-2/3 lg:-mb-24 xl:-mb-28'>
-            <Image src={AboutHeroPHoto} alt='house' className='rounded-lg' />
+            <Image
+              src={AboutHeroPHoto}
+              alt='house'
+              className='rounded-lg'
+              placeholder='blur'
+            />
           </div>
         </div>
       </Container>

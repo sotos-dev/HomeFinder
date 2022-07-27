@@ -14,6 +14,7 @@ const HeroSection = () => {
             className='-z-10 md:rounded-2xl'
             src={HeroImage}
             alt='UK homes'
+            placeholder='blur'
           />
         </div>
         <HeroFormMobile />

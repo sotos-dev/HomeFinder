@@ -36,6 +36,7 @@ const HomeWorthSection = () => {
               layout='fill'
               objectFit='cover'
               className='rounded-lg'
+              placeholder='blur'
             />
           </div>
         </div>
