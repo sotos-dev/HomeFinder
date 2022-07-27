@@ -1,6 +1,6 @@
 ## Home Finder is a portfolio app where you can find available properties for rent or sale in the UK - It is powered by ZooplaAPI.
 
-## https://home-finder-next-js-tailwind-zoopla-api.vercel.app/
+## https://homefinder-psi.vercel.app/
 
 ## Functionality:
 
@@ -46,4 +46,4 @@ APIs: RapidAPI -> ZooplaAPI -> (500 free calls per month)
 
 Have fun with the website here is the link:
 
-## https://home-finder-next-js-tailwind-zoopla-api.vercel.app/
+## https://homefinder-psi.vercel.app/
