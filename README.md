@@ -32,10 +32,10 @@ APIs: RapidAPI -> ZooplaAPI -> (500 free calls per month)
 
 ## Libraries/Packages:
 
-1. axios -> for data fetching
-2. millify -> to beautify properties prices
-3. nprogress -> to show a thin loading bar on the top whilst data is fetched
-4. tailwind -> for rapid styiling
+1. axios -> data fetching
+2. millify -> to beautify properties' prices
+3. nprogress -> to show the thin loading bar on the top whilst data is fetched
+4. tailwind -> rapid styling
 
 - Disclaimer:
   Zoopla does not expose an api endpoint for individual listings at this time.
